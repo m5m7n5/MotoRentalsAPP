@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Marcos
  */
 public class Motorentals {
-    private static Motorentals instance;
+    private static Motorentals instance = null;
     private ArrayList<Admin> lstAdmin;
     private ArrayList<Manager> lstManager;
     private ArrayList<Client> lstClient;
@@ -27,14 +27,19 @@ public class Motorentals {
     private Person current;
     
     private Motorentals(){
-        MotoRentDataManager dm = new MotoRentDataManager();
-        
-        
+        lstAdmin = new ArrayList<Admin>();
+        lstManager = new ArrayList<Manager>();
+        lstClient = new ArrayList<Client>();
+        lstDriving =  new ArrayList<Moto>();
+        lstLocal = new ArrayList<Local>();
+        current = null;
     }
     
     public static Motorentals getInstance(){
         if(instance == null){
-            return instance = new Motorentals();
+            instance = new Motorentals();
+            MotoRentDataManager dm = new MotoRentDataManager();
+            dm.obtenirDades("data/MotoRent.xml");
         }
         return instance;
     }
