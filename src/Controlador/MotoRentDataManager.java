@@ -1,7 +1,8 @@
-package motorent;
+package Controlador;
 
 import Model.Client;
 import Model.VipClient;
+import Vista.Consola;
 
 /**
  * Data manager per MotoRent

@@ -1,4 +1,4 @@
-package motorent;
+package Controlador;
 
 import Model.Client;
 import java.io.File;
