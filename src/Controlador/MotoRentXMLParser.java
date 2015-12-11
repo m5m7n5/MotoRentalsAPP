@@ -244,7 +244,7 @@ public class MotoRentXMLParser {
 	 * 
 	 * @param doc fitxer XML del que obtenir les dades
 	 */
-	private ArrayList<Client> obtenirClients(Document doc) {
+	private void obtenirClients(Document doc) {
 		NodeList clients = doc.getElementsByTagName("client");
 		String id, nom, usuari, password, vip, renovacio, faltes, dni, adreca;
 		int numClients = clients.getLength();
@@ -281,9 +281,8 @@ public class MotoRentXMLParser {
 				password = ePassword.getTextContent();
 
 				// Creem el client
-				lstAuxC.add(dataManager.crearClient(id, nom, dni, adreca, usuari, password, vip, renovacio, faltes));
+				dataManager.crearClient(id, nom, dni, adreca, usuari, password, vip, renovacio, faltes);
 			}
 		}
-                return lstAuxC;
 	}
 }

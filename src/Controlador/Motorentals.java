@@ -38,4 +38,8 @@ public class Motorentals {
         }
         return instance;
     }
+    
+    public void addClient(Client c) {
+       lstClient.add(c);
+    }
 }

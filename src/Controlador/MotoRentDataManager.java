@@ -163,13 +163,17 @@ public class MotoRentDataManager {
 	 * @param vip true si el client es vip. false si no
 	 * @param renovacio true si el client renova automaticament. false si no
 	 * @param faltes nombre de faltes
+     * @return 
 	 */
 
-	public Client crearClient(String id, String nom, String dni, String adreca, String usuari, String password, String vip, String renovacio, String faltes) {
+	public void crearClient(String id, String nom, String dni, String adreca, String usuari, String password, String vip, String renovacio, String faltes) {
 
 		/* TODO: Creeu aqui el vostre client
 		 */
-		Consola.escriu("\nClient ID: " + id + "\n");
+		
+                Motorentals motorent = Motorentals.getInstance();
+             
+                Consola.escriu("\nClient ID: " + id + "\n");
 		Consola.escriu("-----------------\n");
 		Consola.escriu("Nom: " + nom + "\n");
 		Consola.escriu("Usuari: " + usuari + "\n");
@@ -188,6 +192,6 @@ public class MotoRentDataManager {
                 }else{
                     c = new Client(usuari,password,id,name,surname,dni,Integer.parseInt(faltes),adreca);
                 }
-                return c;
+                motorent.addClient(c);
         }
 }
