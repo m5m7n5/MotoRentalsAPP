@@ -47,4 +47,12 @@ public class Motorentals {
     public void addClient(Client c) {
        lstClient.add(c);
     }
+    
+    public void run(){
+        this.selectOptionMenuUser();
+    }
+    
+    private void selectOptionMenuUser(){
+        
+    }
 }
