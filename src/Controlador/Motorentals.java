@@ -69,14 +69,14 @@ public class Motorentals {
          * Maximum number of tries: 3.
          */
         
-        while (!exists & tries < 3){
+        while (!exists && tries < 3){
             int i;
             Consola.escriu("Insert username: ");
             user = Consola.llegeixString();
             
             //Checking: is our user a client?
             //We made this for because we want to get out if we found the client.
-            for (i = 0; i < lstClient.size() & !exists; i++){
+            for (i = 0; i < lstClient.size() && !exists; i++){
                 Client c = lstClient.get(i);
                 check = c.compareByUser(user);
                 if (check){
@@ -87,7 +87,7 @@ public class Motorentals {
             
             //Checking: is our user a manager?
             //Since we made this kind of for loop, if we already found a person we won't enter here.
-            for (i = 0; i < lstManager.size() & !exists; i++){
+            for (i = 0; i < lstManager.size() && !exists; i++){
                 Manager m = lstManager.get(i);
                 check = m.compareByUser(user);
                 if (check){
@@ -98,7 +98,7 @@ public class Motorentals {
             
             //Checking: is our user an admin?
             //Same situation as before.
-            for (i = 0; i < lstAdmin.size() & !exists; i++){
+            for (i = 0; i < lstAdmin.size() && !exists; i++){
                 Admin a = lstAdmin.get(i);
                 check = a.compareByUser(user);
                 if (check){
@@ -124,7 +124,7 @@ public class Motorentals {
             exists = false;
             tries = 0; //You can try 3 times for your password.
             
-            while (!exists & tries < 3){
+            while (!exists && tries < 3){
                 Consola.escriu("Insert password: ");
                 pass = Consola.llegeixString();
             
@@ -147,13 +147,13 @@ public class Motorentals {
          * If we reach here with more than 3 tries, then you can't log in.
          */
         
-        if (pers instanceof Client & tries < 3){
+        if (pers instanceof Client && tries < 3){
             showClientMenu();
             current = pers; //This will be our current user
-        } else if (pers instanceof Manager & tries < 3){
+        } else if (pers instanceof Manager && tries < 3){
             showManagerMenu();
             current = pers; 
-        } else if (pers instanceof Admin & tries < 3){
+        } else if (pers instanceof Admin && tries < 3){
             showAdminMenu(); 
             current = pers;
         } else {
@@ -162,6 +162,161 @@ public class Motorentals {
            
     }
     
+    private void signUp(){
+        String name,surname,street,DNI, pobl, email, iban;
+        String DNINumber;
+        String user,pass1,pass2;
+        DNI = null;
+        user = null;
+        pass1 = null;
+        
+
+        
+        int dniNumber, tlphNumber, numStreet, numDoor, CP;
+        int entity, office, control, accNumber;
+        
+        
+        boolean check = false,exists = false;
+        
+        Consola.escriu("Real name: ");
+        name = Consola.llegeixString();
+        
+        Consola.escriu("Surname: ");
+        surname = Consola.llegeixString();
+        
+        while (check == false) {
+            Consola.escriu("DNI: ");
+            DNI = Consola.llegeixString();
+            
+            DNINumber = DNI.substring(0, DNI.length()-1);
+            dniNumber = Integer.parseInt(DNI);
+            
+            if (dniNumber - 100000001  < 0 && dniNumber >= 0 ){
+                check = true;
+            } else {
+                Consola.escriu("Invalid number");
+            }
+            
+        }
+        
+        check = false;
+        while (check == false){
+            Consola.escriu("Telephon number: ");
+            tlphNumber = Consola.llegeixInt();
+            
+            if (tlphNumber - 1000000001 > 0 && tlphNumber <= 999999999){
+                check = true;
+            } else {
+                Consola.escriu("Invalid telephon");
+            }
+            
+        }
+        check = false;
+        Consola.escriu("Street: ");
+        street = Consola.llegeixString();
+        
+        Consola.escriu("Number: ");
+        numStreet = Consola.llegeixInt();
+        
+        Consola.escriu("Door: ");
+        numDoor = Consola.llegeixInt();
+        
+        Consola.escriu("Postal code: ");
+        CP = Consola.llegeixInt();
+        
+        Consola.escriu("Poblation: ");
+        pobl = Consola.llegeixString();
+        
+        Consola.escriu("E-mail: ");
+        email = Consola.llegeixString();
+        
+        while (check == false){
+            Consola.escriu("Write the entity of your bank account: ");
+            entity = Consola.llegeixInt();
+            if (entity >= 0 && entity <= 9999){
+                check = true;
+            } else{
+                Consola.escriu("Invalid entity");
+            }   
+            
+        }
+        check = false;
+        while (check == false){
+            Consola.escriu("Write the office of your bank account: ");
+            office = Consola.llegeixInt();
+            if (office >= 0 && office <= 9999){
+                check = true;
+            } else{
+                Consola.escriu("Invalid office");
+            }   
+            
+        }
+        check = false;
+        while (check == false){
+            Consola.escriu("Write the DC of your bank account: ");
+            control = Consola.llegeixInt();
+            if (control >= 0 && control <= 99){
+                check = true;
+            } else{
+                Consola.escriu("Invalid DC");
+            }   
+            
+        }
+        check = false;
+        while (check == false){
+            Consola.escriu("Write the account number of your bank account: ");
+            accNumber = Consola.llegeixInt();
+            if (accNumber >= 0 && accNumber <= 999999999*10+9){
+                check = true;
+            } else{
+                Consola.escriu("Invalid account number");
+            }   
+            
+        }
+        check = false;
+        for(int i = 0; i< this.lstClient.size() && check == false; i++){
+            check = this.lstClient.get(i).compareByDni(DNI);
+            if (check == true) {
+                Consola.escriu("You have already have an acoount");
+            }
+        }
+        
+        if (check == false){
+            while (check == false){
+                Consola.escriu("Username: ");
+                user = Consola.llegeixString();
+                exists = false;
+                for(int i = 0; i< this.lstClient.size() && check == false; i++){
+                    exists = this.lstClient.get(i).compareByUser(user);
+                    if (exists == true){
+                        Consola.escriu("This username already exists");
+                    }
+                }
+            }
+            check = !exists;
+        }
+        check = false;
+        while (check == false) {
+            Consola.escriu("Password: ");
+            pass1 = Consola.llegeixString();
+      
+            Consola.escriu("Write your password again: ");
+            pass2 = Consola.llegeixString();
+            
+            if (pass1.equals(pass2)){
+                check = true;
+            } else {
+                Consola.escriu("Your password does not match");
+            }
+        }
+        
+        String id = "c" + Integer.toString(this.lstClient.size()+1);
+        
+        Client newClient = new Client(user,pass1,id,name,surname,DNI,0,street);
+        this.lstClient.add(newClient);
+        Consola.escriu("Correctly registered");
+        Consola.escriu(user);
+    }
     
     /*------------------------------------------------------------*/
     /* --------------   Menus and Select Options -----------------*/
