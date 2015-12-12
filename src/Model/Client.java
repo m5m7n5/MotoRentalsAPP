@@ -74,7 +74,22 @@ public class Client extends Person{
          * Se tiene que poner el cantHoras, cantDias en función del date dado.
          * Necesitamos un objeto tipo date.
          */
-        reserve = new Reserve(localS, localE, date, motoreta);
+        Reserve reserve = new Reserve(localS, localE, date, date, motoreta);
         active = reserve;
+    }
+    
+    /**
+     * Method that sets a reserve as an active reserve created outside to the client (Used by MotoRentalsXMLDataManager)
+     * @param r 
+     */
+    public void setActiveReserve(Reserve r){
+        active = r;
+    }
+    /**
+     * Method that adds a reserve to the done reserve list.
+     * @param r 
+     */
+    public void addReserveDone(Reserve r){
+        lstDone.add(r);
     }
 }
