@@ -17,7 +17,7 @@ public class Address {
     private int door;
     private int PC;
 
-    public Address(String address) {
-        this.street=address;
+    public Address(String street) {
+        this.street=street;
     }
 }
