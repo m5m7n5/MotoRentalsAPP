@@ -19,4 +19,12 @@ public class Person {
         this.password = password;
         this.name=name;
     }
+    
+    public boolean compareByUser(String user){
+        return (userName.equals(user));
+    }
+    
+    public boolean compareByPassword(String pass){
+        return (password.equals(pass));
+    }
 }

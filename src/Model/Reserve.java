@@ -11,8 +11,8 @@ package Model;
  */
 public class Reserve {
     private String code;
-    private Local Arrival;
-    private Local Start;
+    private Local arrival;
+    private Local start;
     private Moto moto;
     private StatusReserve status;
     private Admonish admonish;
@@ -20,4 +20,12 @@ public class Reserve {
     private Delay delay;
     private Date startDate;
     private Date endDate;
+    
+    public Reserve (Local localS, Local localA, Date dateS, Date dateE, Moto moto){
+        start = localS;
+        arrival = localA;
+        startDate = dateS;
+        endDate = dateE;
+        this.moto = moto;
+    }
 }

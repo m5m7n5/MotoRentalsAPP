@@ -39,4 +39,42 @@ public class Client extends Person{
         this.active = null;
         this.registerDate = null;
     }
+    /**
+     * Method that allows us to compare two clients by their DNI.
+     * @param dni
+     * @return 
+     */
+    public boolean compareByDni(String dni){
+        return(DNI.endsWith(dni));
+    }
+    /**
+     * Method that returns true if the client has an active reserve or false otherwise.
+     * @return 
+     */
+    public boolean hasActiveReserve(){
+        boolean cond = false;
+        if (active != null){
+            cond = true;
+        } 
+        return cond;
+    }
+    
+    /**
+     * Method that adds an active reserve to the client
+     * @param localS
+     * @param localE
+     * @param date
+     * @param cantHoras
+     * @param cantDias
+     * @param motoreta 
+     */
+    public void addActiveReserve(Local localS, Local localE, Date date, int cantHoras, int cantDias, Moto motoreta){
+        /**
+         * Se tendra que modificar pero ahora me da palo.
+         * Se tiene que poner el cantHoras, cantDias en función del date dado.
+         * Necesitamos un objeto tipo date.
+         */
+        reserve = new Reserve(localS, localE, date, motoreta);
+        active = reserve;
+    }
 }
