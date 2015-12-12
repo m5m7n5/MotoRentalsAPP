@@ -16,4 +16,15 @@ public class Local {
     private int maxMoto;
     private Address add;
     private ArrayList<Moto> lstMotos;
+
+    public Local(String idLocal, int maxMoto, Address add, ArrayList<Moto> lstMotos){
+        this.idLocal = idLocal;
+        this.maxMoto = maxMoto;
+        this.add = add;
+        this.lstMotos = lstMotos;
+    }
+
+    public Moto getMotoByIndex(int index) {
+        return lstMotos.get(index-1);
+    }           
 }

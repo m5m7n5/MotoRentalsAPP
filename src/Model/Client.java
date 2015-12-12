@@ -52,11 +52,8 @@ public class Client extends Person{
      * @return 
      */
     public boolean hasActiveReserve(){
-        boolean cond = false;
-        if (active != null){
-            cond = true;
-        } 
-        return cond;
+        return (this.active != null);
+        
     }
     
     /**
@@ -92,4 +89,6 @@ public class Client extends Person{
     public void addReserveDone(Reserve r){
         lstDone.add(r);
     }
+    
+    
 }
