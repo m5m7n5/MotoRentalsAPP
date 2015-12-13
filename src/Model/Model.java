@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Vista.Consola;
+
 /**
  *
  * @author Marcos
@@ -15,4 +17,12 @@ public class Model {
     private int cylinder;
     private int horsepower;
     private int tank;
+
+    void printInfoModel() {
+        Consola.escriu("Model name"+name);
+        Consola.escriu("Fuel type"+fuel);
+        Consola.escriu("Tank capacity"+Integer.toString(tank));
+        Consola.escriu("Horsepower"+Integer.toString(horsepower));
+        Consola.escriu("Cylinder"+Integer.toString(cylinder));
+    }
 }

@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Controlador.Motorentals;
+import Vista.Consola;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +27,31 @@ public class Local {
     }
 
     public Moto getMotoByIndex(int index) {
+        int lenght = lstMotos.size();
+        index = Motorentals.getInstance().checkNumber(index, lenght);
         return lstMotos.get(index-1);
     }           
+
+    public boolean IsEmpty() {
+        return lstMotos.size()<5;
+    }
+
+    public void printInfoLocal() {
+        add.printStreet();
+        Consola.escriu("Max quantity");
+        Consola.escriu(maxMoto);
+        int size = lstMotos.size();
+        Consola.escriu("Current moto quantity");
+        Consola.escriu(size);
+    }
+
+    public boolean IsFull() {
+        return (lstMotos.size()/(double)maxMoto)>0.75;
+    }
+
+    public void printMotoList() {
+        for(Moto m: lstMotos){
+            m.printInfoMoto();
+        }
+    }
 }

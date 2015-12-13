@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Marcos
@@ -18,10 +20,10 @@ public class Reserve {
     private Admonish admonish;
     private Price price;
     private Delay delay;
-    private Date startDate;
-    private Date endDate;
+    private Calendar startDate;
+    private Calendar endDate;
     
-    public Reserve (Local localS, Local localA, Date dateS, Date dateE, Moto moto){
+    public Reserve (Local localS, Local localA, Calendar dateS, Calendar dateE, Moto moto){
         start = localS;
         arrival = localA;
         startDate = dateS;

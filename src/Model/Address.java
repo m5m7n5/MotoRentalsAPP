@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Vista.Consola;
+
 /**
  *
  * @author Marcos
@@ -19,5 +21,9 @@ public class Address {
 
     public Address(String street) {
         this.street=street;
+    }
+
+    void printStreet() {
+        Consola.escriu("Street"+street);
     }
 }

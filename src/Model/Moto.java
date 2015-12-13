@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Vista.Consola;
+
 /**
  *
  * @author Marcos
@@ -15,4 +17,11 @@ public class Moto {
     private int idMoto;
     private Model model;
     private MotoStatus status;
+
+    void printInfoMoto() {
+        model.printInfoModel();
+        Consola.escriu("License plate:"+plate);
+        Consola.escriu("Color:"+color);
+        status.printStatus();
+    }
 }

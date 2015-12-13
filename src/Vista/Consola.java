@@ -1,6 +1,7 @@
 // Poseu la consola al paquet que us vagi millor
 package Vista;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -83,8 +84,9 @@ public class Consola {
      *
      * @return data actual
      */
-    public static Date llegeixDataSistema() {
-        return new Date();
+    public static Calendar llegeixDataSistema() {
+        Calendar date = Calendar.getInstance();
+        return date;
     }
 
 }

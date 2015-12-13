@@ -6,6 +6,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -65,7 +66,7 @@ public class Client extends Person{
      * @param cantDias
      * @param motoreta 
      */
-    public void addActiveReserve(Local localS, Local localE, Date date, int cantHoras, int cantDias, Moto motoreta){
+    public void addActiveReserve(Local localS, Local localE, Calendar date, int cantHoras, int cantDias, Moto motoreta){
         /**
          * Se tendra que modificar pero ahora me da palo.
          * Se tiene que poner el cantHoras, cantDias en función del date dado.

@@ -7,12 +7,14 @@ package Controlador;
 
 import Model.Admin;
 import Model.Client;
+import Model.Date;
 import Model.Local;
 import Model.Manager;
 import Model.Moto;
 import Model.Person;
 import Vista.Consola;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -483,5 +485,131 @@ public class Motorentals {
             }
         }
         return index;
+    }
+    
+    private void book(Client current){
+        boolean r = current.hasActiveReserve();
+        boolean correct = false;
+        Calendar date = null;
+        if(!r){
+            while(!correct){
+                Consola.escriu("Insert a date (hh/dd/mm/yyyy)");
+                String fecha = Consola.llegeixString();
+                String[] parser = fecha.split("/");
+                date = Consola.llegeixDataSistema();
+                int year = Integer.parseInt(parser[3]);
+                int month = Integer.parseInt(parser[2]);
+                int days = Integer.parseInt(parser[1]);
+                int hours = Integer.parseInt(parser[0]);
+                date.set(year, month, days, hours, 0);
+                Calendar currentDate = Consola.llegeixDataSistema();
+                correct = currentDate.after(date);
+                if(!correct){
+                    Consola.escriu("Invalid date, insert again");
+                }   
+            }
+            
+            Local localS = bookGetLocalS();
+            Local localE = bookGetLocalE();
+            Moto motoreta = bookGetMoto(localS);
+        
+            Consola.escriu("Insert number of days you would like to reserve:");
+            int cantDias = Consola.llegeixInt();
+            Consola.escriu("Insert number of hours you would like to reserve:");
+            int cantHoras = Consola.llegeixInt();
+            /**
+             Falta implementar :P
+            bookShowInfo();
+            */
+            Consola.escriu("Insert an S to confirm or an N to cancel the reserve");
+            String ans = Consola.llegeixString();
+            correct = checkYesNo(ans);
+            if(correct){
+                current.addActiveReserve(localS, localE, date, cantHoras, cantDias, motoreta);
+                Consola.escriu("The reserve has been done and saved");
+            }
+        }
+    }
+
+    private Local bookGetLocalS() {
+        ArrayList<Local> auxLstLocals = getStartAvailableLocals();
+        
+        printLocalList(auxLstLocals);
+        Consola.escriu("Insert the index of your prefered local.");
+        int indice = Consola.llegeixInt();
+        int lenght = auxLstLocals.size();
+        indice = checkNumber(indice,lenght);
+        Local localS = getLocalByIndex(auxLstLocals,indice);
+        return localS;
+    }
+
+    private ArrayList<Local> getStartAvailableLocals() {
+        ArrayList<Local> lstLocalAux = new ArrayList<Local>(); 
+        for(int i=0;i<lstLocal.size();i++){
+            boolean cond = lstLocal.get(i).IsEmpty();
+            if(!cond){
+                lstLocalAux.add(lstLocal.get(i));
+            }
+        }
+        return lstLocalAux;
+    }
+    
+    private void printLocalList(ArrayList<Local> auxLstLocals) {
+        for(int i=0;i<auxLstLocals.size();i++){
+            auxLstLocals.get(i).printInfoLocal();
+        }
+    }
+
+    private Local getLocalByIndex(ArrayList<Local> auxLstLocal, int indice) {
+        return auxLstLocal.get(indice-1);
+    }
+
+    private Local bookGetLocalE() {
+        ArrayList<Local> auxLstLocals = getEndAvailableLocals();
+        
+        printLocalList(auxLstLocals);
+        Consola.escriu("Insert the index of your prefered local.");
+        int indice = Consola.llegeixInt();
+        int lenght = auxLstLocals.size();
+        indice = checkNumber(indice,lenght);
+        Local localS = getLocalByIndex(auxLstLocals,indice);
+        return localS;
+    }
+
+    private ArrayList<Local> getEndAvailableLocals() {
+        ArrayList<Local> lstLocalAux = new ArrayList<Local>(); 
+        for(int i=0;i<lstLocal.size();i++){
+            boolean cond = lstLocal.get(i).IsFull();
+            if(!cond){
+                lstLocalAux.add(lstLocal.get(i));
+            }
+        }
+        return lstLocalAux;
+    }
+
+    private Moto bookGetMoto(Local localS) {
+        localS.printMotoList();
+        Consola.escriu("Insert the index of your prefered moto.");
+        int indice = Consola.llegeixInt();
+        Moto motoreta = localS.getMotoByIndex(indice);
+        return motoreta;
+    }
+
+    private boolean checkYesNo(String chr) {
+        boolean correct = false;
+        boolean found = true;
+        while(!correct){
+            if(chr == "S"){
+                correct = true;
+                found = true;
+            }else if(chr == "N"){
+                correct = true;
+                found = false;
+            }else{
+                Consola.escriu("Invalid char, try again.");
+                chr = Consola.llegeixString();
+            }
+        }
+        return found;
     }
 }

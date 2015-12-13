@@ -5,10 +5,16 @@
  */
 package Model;
 
+import Vista.Consola;
+
 /**
  *
  * @author Marcos
  */
 public class MotoStatus {
+
+    void printStatus() {
+        Consola.escriu("description");
+    }
     
 }
