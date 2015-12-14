@@ -12,6 +12,7 @@ import Model.Local;
 import Model.Manager;
 import Model.Moto;
 import Model.Person;
+import Model.Reserve;
 import Vista.Consola;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,14 +151,14 @@ public class Motorentals {
          */
         
         if (pers instanceof Client && tries < 3){
-            showClientMenu();
             current = pers; //This will be our current user
+            showClientMenu();
         } else if (pers instanceof Manager && tries < 3){
-            showManagerMenu();
-            current = pers; 
-        } else if (pers instanceof Admin && tries < 3){
-            showAdminMenu(); 
             current = pers;
+            showManagerMenu();
+        } else if (pers instanceof Admin && tries < 3){
+            current = pers;
+            showAdminMenu(); 
         } else {
             Consola.escriu("You've exceeded the maximum permited tries");
         }
@@ -191,7 +192,7 @@ public class Motorentals {
             DNI = Consola.llegeixString();
             
             DNINumber = DNI.substring(0, DNI.length()-1);
-            dniNumber = Integer.parseInt(DNI);
+            dniNumber = Integer.parseInt(DNINumber);
             
             if (dniNumber - 100000001  < 0 && dniNumber >= 0 ){
                 check = true;
@@ -206,7 +207,7 @@ public class Motorentals {
             Consola.escriu("Telephon number: ");
             tlphNumber = Consola.llegeixInt();
             
-            if (tlphNumber - 1000000001 > 0 && tlphNumber <= 999999999){
+            if (tlphNumber - 1000000001 < 0 && tlphNumber <= 999999999){
                 check = true;
             } else {
                 Consola.escriu("Invalid telephon");
@@ -294,30 +295,31 @@ public class Motorentals {
                         Consola.escriu("This username already exists");
                     }
                 }
+                check = !exists;
             }
-            check = !exists;
-        }
-        check = false;
-        while (check == false) {
-            Consola.escriu("Password: ");
-            pass1 = Consola.llegeixString();
-      
-            Consola.escriu("Write your password again: ");
-            pass2 = Consola.llegeixString();
             
-            if (pass1.equals(pass2)){
-                check = true;
-            } else {
-                Consola.escriu("Your password does not match");
+            check = false;
+            while (check == false) {
+                Consola.escriu("Password: ");
+                pass1 = Consola.llegeixString();
+
+                Consola.escriu("Write your password again: ");
+                pass2 = Consola.llegeixString();
+
+                if (pass1.equals(pass2)){
+                    check = true;
+                } else {
+                    Consola.escriu("Your password does not match");
+                }
             }
+
+            String id = "c" + Integer.toString(this.lstClient.size()+1);
+
+            Client newClient = new Client(user,pass1,id,name,surname,DNI,0,street);
+            this.lstClient.add(newClient);
+            Consola.escriu("Correctly registered ");
+            Consola.escriu(user);
         }
-        
-        String id = "c" + Integer.toString(this.lstClient.size()+1);
-        
-        Client newClient = new Client(user,pass1,id,name,surname,DNI,0,street);
-        this.lstClient.add(newClient);
-        Consola.escriu("Correctly registered");
-        Consola.escriu(user);
     }
     
     /*------------------------------------------------------------*/
@@ -329,7 +331,7 @@ public class Motorentals {
         Consola.escriu("2.Sign up");
         Consola.escriu("3. Exit application");
         
-        Consola.escriu("Insert the index of the option you want to do");
+        Consola.escriu("Insert the index of the option you want to do: ");
         
         int index;
         index = Consola.llegeixInt();
@@ -338,16 +340,29 @@ public class Motorentals {
     }
     
     private void selectOptionMenuUser(int index){
-        switch(index){
-            case 1: 
-                Consola.escriu("Log in");
-                break;
-            case 2:
-                Consola.escriu("Sign up");
-                break;
-            case 3:
-                Consola.escriu("Exit application");
-                break;
+        while(index!=3){
+            switch(index){
+                case 1: 
+                    Consola.escriu("Log in");
+                    logIn();
+                    break;
+                case 2:
+                    Consola.escriu("Sign up");
+                    signUp();
+                    break;
+                case 3:
+                    Consola.escriu("Exit application");
+                    break;
+            }
+            
+            Consola.escriu("1. Log in");
+            Consola.escriu("2.Sign up");
+            Consola.escriu("3. Exit application");
+        
+            Consola.escriu("Insert the index of the option you want to do: ");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 3);
+            
         }
     }
     
@@ -379,6 +394,7 @@ public class Motorentals {
                 break;
             case 3: 
                 Consola.escriu("Book");
+                book();
                 break;
             case 4: 
                 Consola.escriu("Modify Arrival");
@@ -481,14 +497,14 @@ public class Motorentals {
                 correct = true;
             } else {
                 System.out.println("Invalid index, please try again");
-                
+                index = Consola.llegeixInt();
             }
         }
         return index;
     }
     
-    private void book(Client current){
-        boolean r = current.hasActiveReserve();
+    private void book(){
+        boolean r = ((Client)current).hasActiveReserve();
         boolean correct = false;
         Calendar date = null;
         if(!r){
@@ -503,7 +519,7 @@ public class Motorentals {
                 int hours = Integer.parseInt(parser[0]);
                 date.set(year, month, days, hours, 0);
                 Calendar currentDate = Consola.llegeixDataSistema();
-                correct = currentDate.after(date);
+                correct = currentDate.before(date);
                 if(!correct){
                     Consola.escriu("Invalid date, insert again");
                 }   
@@ -525,7 +541,7 @@ public class Motorentals {
             String ans = Consola.llegeixString();
             correct = checkYesNo(ans);
             if(correct){
-                current.addActiveReserve(localS, localE, date, cantHoras, cantDias, motoreta);
+                ((Client)current).addActiveReserve(localS, localE, date, cantHoras, cantDias, motoreta);
                 Consola.escriu("The reserve has been done and saved");
             }
         }
@@ -611,5 +627,38 @@ public class Motorentals {
             }
         }
         return found;
+    }
+
+    public void addManager(Manager m) {
+        lstManager.add(m);
+    }
+
+    public void addAdmin(Admin a) {
+        lstAdmin.add(a);
+    }
+
+    public Local getLocalById(String id) {
+        for(Local l:lstLocal){
+            if(l.compareLocalById(id)){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    void addReserveToClient(String client, Reserve r) {
+        for(Client c:lstClient){
+            if(c.compareById(client)){
+                c.addReserveDone(r);
+            }
+        }
+    }
+
+    void addActiveReserveToClient(String client, Reserve r) {
+        for(Client c:lstClient){
+            if(c.compareById(client)){
+                c.setActiveReserve(r);
+            }
+        }
     }
 }

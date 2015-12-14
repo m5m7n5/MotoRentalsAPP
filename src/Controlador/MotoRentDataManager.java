@@ -1,8 +1,14 @@
 package Controlador;
 
+import Model.Admin;
 import Model.Client;
+import Model.Local;
+import Model.Manager;
+import Model.Moto;
+import Model.Reserve;
 import Model.VipClient;
 import Vista.Consola;
+import java.util.Calendar;
 
 /**
  * Data manager per MotoRent
@@ -97,7 +103,9 @@ public class MotoRentDataManager {
 
 		/* TODO: A partir d'aqui creeu el trajecte
 		 */
-		Consola.escriu("\nReserva amb ID: " + id + "\n");
+		Motorentals motorent = Motorentals.getInstance();
+                /*
+                Consola.escriu("\nReserva amb ID: " + id + "\n");
 		Consola.escriu("--------------------------------------\n");
 		Consola.escriu("Client: " + client + "\n");
 		Consola.escriu("Moto: " + moto + "\n");
@@ -109,6 +117,35 @@ public class MotoRentDataManager {
 		Consola.escriu("Local de finalització: " + local_fi + "\n");
 		Consola.escriu("Hora de finalització: " + hora_fi + "\n");
 		Consola.escriu("Data de finalització: " + fecha_fi + "\n");
+                */
+                Local li = motorent.getLocalById(local_inici);
+                Local le = motorent.getLocalById(local_fi);
+                Moto m = li.getMotoById(moto);
+                Calendar dataS = Calendar.getInstance();
+                String[] s = fecha_inici.split("/");
+                String[] l = hora_inici.split(":");
+                int h = Integer.parseInt(l[0]);
+                if(Integer.parseInt(l[1])>30){
+                    h++;
+                }
+                dataS.set(Integer.parseInt(s[2]),Integer.parseInt(s[1]),Integer.parseInt(s[0]),h,0);
+                
+                Calendar dataE = Calendar.getInstance();
+                s = fecha_fi.split("/");
+                l = hora_fi.split(":");
+                h = Integer.parseInt(l[0]);
+                if(Integer.parseInt(l[1])>30){
+                    h++;
+                }
+                dataE.set(Integer.parseInt(s[2]),Integer.parseInt(s[1]),Integer.parseInt(s[0]),h,0);
+                Reserve r = new Reserve(li,le,dataS,dataE,m);
+                if(dataE.after(Calendar.getInstance())){
+                    motorent.addActiveReserveToClient(client,r);
+                }else{
+                    motorent.addReserveToClient(client,r);
+                }
+                
+                
 	}
 
 	/**
@@ -123,12 +160,16 @@ public class MotoRentDataManager {
 
 		/* TODO: Creeu aqui el vostre admin
 		 */
-
+                Motorentals motorent = Motorentals.getInstance();
+                /*
 		Consola.escriu("\nAdmin ID: " + id + "\n");
 		Consola.escriu("-----------------\n");
 		Consola.escriu("Nom: " + nom + "\n");
 		Consola.escriu("Usuari: " + usuari + "\n");
 		Consola.escriu("Password: " + password + "\n");
+                */
+                Admin a = new Admin(usuari,password,nom,id);
+                motorent.addAdmin(a);
 	}
 	
 	/**
@@ -143,12 +184,17 @@ public class MotoRentDataManager {
 
 		/* TODO: Creeu aqui el vostre admin
 		 */
-
+                Motorentals motorent = Motorentals.getInstance();
+                /*
 		Consola.escriu("\nGestor ID: " + id + "\n");
 		Consola.escriu("-----------------\n");
 		Consola.escriu("Nom: " + nom + "\n");
 		Consola.escriu("Usuari: " + usuari + "\n");
 		Consola.escriu("Password: " + password + "\n");
+                */
+                Manager m = new Manager(usuari,password,nom,id);
+                
+                motorent.addManager(m);
 	}
 
 	/**
@@ -172,17 +218,17 @@ public class MotoRentDataManager {
 		 */
 		
                 Motorentals motorent = Motorentals.getInstance();
-             
-                Consola.escriu("\nClient ID: " + id + "\n");
-		Consola.escriu("-----------------\n");
-		Consola.escriu("Nom: " + nom + "\n");
-		Consola.escriu("Usuari: " + usuari + "\n");
-		Consola.escriu("Dni: " + dni + "\n");
-		Consola.escriu("Adreça: " + adreca + "\n");
-		Consola.escriu("Password: " + password + "\n");
-		Consola.escriu("Es VIP: " + vip + "\n");
-		Consola.escriu("Renovació automàtica: " + renovacio + "\n");
-		Consola.escriu("Nombre de faltes: " + faltes + "\n");
+                
+                Consola.escriu("\nClient ID: " + id);
+		Consola.escriu("-----------------");
+		Consola.escriu("Nom: " + nom);
+		Consola.escriu("Usuari: " + usuari);
+		Consola.escriu("Dni: " + dni);
+		Consola.escriu("Adreça: " + adreca);
+		Consola.escriu("Password: " + password);
+		Consola.escriu("Es VIP: " + vip);
+		Consola.escriu("Renovació automàtica: " + renovacio);
+		Consola.escriu("Nombre de faltes: " + faltes);
                 
                 String name=nom.split(" ")[0];
                 String surname=nom.split(" ")[1];

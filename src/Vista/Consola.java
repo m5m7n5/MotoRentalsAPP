@@ -21,7 +21,7 @@ public class Consola {
      * @param s text a mostrar.
      */
     public static void escriu(String s) {
-        System.out.print(s);
+        System.out.println(s);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Consola {
      * @param i enter a mostrar.
      */
     public static void escriu(int i) {
-        System.out.print(i);
+        System.out.println(i);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Consola {
      * @param f nombre flotant a mostrar.
      */
     public static void escriu(float f) {
-        System.out.print(f);
+        System.out.println(f);
     }
 
     /**

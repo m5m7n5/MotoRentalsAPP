@@ -90,6 +90,10 @@ public class Client extends Person{
     public void addReserveDone(Reserve r){
         lstDone.add(r);
     }
+
+    public boolean compareById(String client) {
+        return client.equals(id);
+    }
     
     
 }

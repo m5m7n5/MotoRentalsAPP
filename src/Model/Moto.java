@@ -14,14 +14,18 @@ import Vista.Consola;
 public class Moto {
     private String color;
     private String plate;
-    private int idMoto;
+    private String idMoto;
     private Model model;
     private MotoStatus status;
 
-    void printInfoMoto() {
+    public void printInfoMoto() {
         model.printInfoModel();
         Consola.escriu("License plate:"+plate);
         Consola.escriu("Color:"+color);
         status.printStatus();
+    }
+
+    public boolean compareMotoById(String moto) {
+        return moto.equals(this.idMoto);
     }
 }
