@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Vista.Consola;
 import java.util.Calendar;
 
 /**
@@ -29,5 +30,43 @@ public class Reserve {
         startDate = dateS;
         endDate = dateE;
         this.moto = moto;
+    }
+
+    public boolean compareCode(String code) {
+        return (code == this.code);
+    }
+
+    public Moto getMoto() {
+        return this.moto;
+    }
+
+    public Local getLocalE() {
+        return this.arrival;
+    }
+
+    public void addAdmonish(String explicacion, int priceAdmonish) {
+        this.admonish = new Admonish(explicacion, priceAdmonish);
+    }
+
+    public void printInfoReserve() {
+        this.start.printInfoLocal();
+        this.arrival.printInfoLocal();
+        this.moto.printInfoMoto();
+        
+        Consola.escriu(this.startDate);
+        Consola.escriu(this.endDate);
+        
+    }
+
+    public void addDelayToReserve(int numhorastard, int numdiastard) {
+        this.delay = new Delay(numhorastard, numdiastard);
+    }
+
+    public void removeAdmonish() {
+        this.admonish = null;
+    }
+
+    public void removeDelay() {
+        this.delay = null;
     }
 }

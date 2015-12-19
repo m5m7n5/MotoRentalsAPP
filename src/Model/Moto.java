@@ -18,10 +18,22 @@ public class Moto {
     private Model model;
     private MotoStatus status;
 
-    void printInfoMoto() {
+    public void printInfoMoto() {
         model.printInfoModel();
         Consola.escriu("License plate:"+plate);
         Consola.escriu("Color:"+color);
         status.printStatus();
+    }
+
+    public void changeStatusNonAvailable() {
+        String desc;
+        Consola.escriu("Write a description of the status");
+        
+        desc = Consola.llegeixString();
+        this.status = new MotoStatus(desc);
+    }
+
+    public void changeStatusAvailable() {
+        this.status = new AvailableStatus(null);
     }
 }

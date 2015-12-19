@@ -42,6 +42,9 @@ public class Consola {
         System.out.print(f);
     }
 
+    public static void escriu(Calendar date){
+        System.out.print(date);
+    }
     /**
      * Llegeix un enter per teclat.
      * <p>

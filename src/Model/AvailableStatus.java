@@ -10,5 +10,9 @@ package Model;
  * @author Marcos
  */
 public class AvailableStatus extends MotoStatus{
+
+    public AvailableStatus(String description) {
+        super(description);
+    }
     
 }

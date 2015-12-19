@@ -13,4 +13,10 @@ public class Delay {
     private int days;
     private int hours;
     private Price price;
+
+    public Delay(int hours, int days){
+        this.hours = hours;
+        this.days = days;
+        this.price = new Price(2*hours + 48*days);
+    }
 }

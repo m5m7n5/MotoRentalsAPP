@@ -12,9 +12,13 @@ import Vista.Consola;
  * @author Marcos
  */
 public class MotoStatus {
-
-    void printStatus() {
-        Consola.escriu("description");
+    String description;
+    
+    public MotoStatus(String description){
+        this.description= description;
+    }
+    public void printStatus() {
+        Consola.escriu(this.description);
     }
     
 }

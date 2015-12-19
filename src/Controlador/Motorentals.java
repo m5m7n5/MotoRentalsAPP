@@ -320,6 +320,78 @@ public class Motorentals {
         Consola.escriu(user);
     }
     
+    public void pickUpMoto(){
+        String code,answer;
+        boolean check = false;
+        boolean yesNo;
+        boolean yesNoDesperfecto = true;
+        Client myclient = null;
+        Moto m;
+        Local lend;
+        
+        Consola.escriu("Insert the code");
+        code = Consola.llegeixString();
+        
+        code = this.checkCode(code);
+        
+        if (code != ""){
+            for (int i=0; i<=this.lstClient.size() && !check; i++){
+                check = this.lstClient.get(i).compareCode(code);
+                
+                if (check){
+                    myclient = this.lstClient.get(i);
+                }
+            }
+            
+            m = myclient.getMotoFromActiveReserve();
+            lend = myclient.getLocalEFromActiveReserve();
+            
+            Consola.escriu("Insert a 'S' if the moto is broken, insert a 'N' otherwise");
+            answer = Consola.llegeixString();
+            
+            yesNo = this.checkYesNo(answer);
+            if (!yesNo){
+                Consola.escriu("Insert a 'S' to admonish a minor flaw, a 'N' otherwise");
+                answer = Consola.llegeixString();
+                
+                yesNoDesperfecto = this.checkYesNo(answer);
+               
+            } else {
+                m.changeStatusNonAvailable();
+            }
+            
+            if (yesNoDesperfecto){
+                myclient.admonish();
+            }
+            
+            myclient.printActiveReserve();
+            
+            Consola.escriu("Insert a 'S' if the moto has been returned with delay or a 'N' otherwise");
+            
+            answer = Consola.llegeixString();
+            
+            yesNo = this.checkYesNo(answer);
+            
+            if (yesNo){
+                myclient.delay();
+            }
+            Consola.escriu("Write 'S' to confirm or 'N' to cancel");
+            answer = Consola.llegeixString();
+            
+            yesNo = this.checkYesNo(answer);
+            
+            if (yesNo){
+                this.pickUpMakeChange(m,lend);
+            
+            } else {
+                myclient.removeAdmonishFromActiveReserve();
+                myclient.removeDelayFromActiveReserve();
+                m.changeStatusAvailable();
+                Consola.escriu("Cancelled");
+                
+            }
+        }
+    }
     /*------------------------------------------------------------*/
     /* --------------   Menus and Select Options -----------------*/
     /*------------------------------------------------------------*/
@@ -612,4 +684,47 @@ public class Motorentals {
         }
         return found;
     }
+
+
+    private String checkCode(String code) {
+       boolean check = false;
+       boolean ans;
+       
+       String rCode = "";
+       String chr;
+       
+       while (!check){
+           for (int i = 0; i <= this.lstClient.size() && !check; i++){
+               check = this.lstClient.get(i).compareCode(code);
+               
+               if (check){
+                   check = true;
+                   rCode = code;
+               }
+           }
+           if (!check){
+               Consola.escriu("The given code is incorrect");
+               Consola.escriu("Do you want to insert it again? Type a 'S' for yes and a 'N' for no");
+               
+               chr = Consola.llegeixString();
+               ans = this.checkYesNo(chr);
+               
+               if (ans){
+                   Consola.escriu("Insert the code");
+                   code = Consola.llegeixString();
+               }else{
+                   Consola.escriu("Cancelled");
+                   check = true;
+               }
+           }
+       }
+       return rCode;
+    }    
+
+    private void pickUpMakeChange(Moto m, Local lend) {
+        lend.addMoto(m);
+        this.lstDriving.remove(m);
+    }
+
 }
+  

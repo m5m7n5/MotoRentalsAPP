@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Vista.Consola;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -90,6 +91,86 @@ public class Client extends Person{
     public void addReserveDone(Reserve r){
         lstDone.add(r);
     }
-    
+
+    public boolean compareCode(String code) {
+        boolean check = false;
+        if (this.active != null){
+            check = this.active.compareCode(code);
+        }
+        return check;
+    }
+
+    public Moto getMotoFromActiveReserve() {
+        Moto m = null;
+        m = this.active.getMoto();
+        return m;
+    }
+
+    public Local getLocalEFromActiveReserve() {
+        Local lend = null;
+        lend = this.active.getLocalE();
+        return lend;
+    }
+
+    public void admonish() {
+        String explicacion;
+        int priceAdmonish;
+        
+        Consola.escriu("Write a brief description about the flaws");
+        explicacion = Consola.llegeixString();
+        
+        Consola.escriu("Insert the price");
+        priceAdmonish = Consola.llegeixInt();
+        
+        Consola.escriu(explicacion);
+        
+        this.active.addAdmonish(explicacion, priceAdmonish);
+        
+    }
+
+    public void printActiveReserve() {
+        this.active.printInfoReserve();
+    }
+
+    public void delay() {
+        int numhorastard = 0;
+        int numdiastard = 0;
+        boolean check = false;
+        
+        while (!check){
+            Consola.escriu("Write how many hours of delay");
+            numhorastard = Consola.llegeixInt();
+            
+            if (numhorastard >= 0){
+                check = true;
+               
+            } else {
+                Consola.escriu("Invalid number, please try again");
+                numhorastard = Consola.llegeixInt();
+            }
+        }
+        check = false;
+        while (!check){
+            Consola.escriu("Write how many days of delay");
+            numdiastard = Consola.llegeixInt();
+            if (numdiastard >= 0){
+                check = true;
+            } else {
+                Consola.escriu("Invalid number, try again");
+                numdiastard = Consola.llegeixInt();
+            
+            }
+        }
+        this.active.addDelayToReserve(numhorastard, numdiastard);
+    }
+
+    public void removeAdmonishFromActiveReserve() {
+       this.active.removeAdmonish();
+       this.numberAdmonish = this.numberAdmonish - 1;
+    }
+
+    public void removeDelayFromActiveReserve() {
+        this.active.removeDelay();
+    }
     
 }
