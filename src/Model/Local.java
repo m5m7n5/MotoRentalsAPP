@@ -55,6 +55,17 @@ public class Local {
         }
     }
 
+    public boolean compareLocalById(String id) {
+        return id.equals(this.idLocal);
+    }
+
+    public Moto getMotoById(String moto) {
+        for(Moto m:lstMotos){
+            if(m.compareMotoById(moto)){
+                return m;
+            }
+        }
+        return null;
     public void addMoto(Moto m) {
         this.lstMotos.add(m);
     }

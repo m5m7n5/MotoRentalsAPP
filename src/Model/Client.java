@@ -92,6 +92,10 @@ public class Client extends Person{
         lstDone.add(r);
     }
 
+    public boolean compareById(String client) {
+        return client.equals(id);
+    }
+    
     public boolean compareCode(String code) {
         boolean check = false;
         if (this.active != null){

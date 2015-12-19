@@ -14,7 +14,7 @@ import Vista.Consola;
 public class Moto {
     private String color;
     private String plate;
-    private int idMoto;
+    private String idMoto;
     private Model model;
     private MotoStatus status;
 
@@ -25,6 +25,8 @@ public class Moto {
         status.printStatus();
     }
 
+    public boolean compareMotoById(String moto) {
+        return moto.equals(this.idMoto);
     public void changeStatusNonAvailable() {
         String desc;
         Consola.escriu("Write a description of the status");
