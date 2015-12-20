@@ -414,17 +414,17 @@ public class Motorentals {
         Consola.escriu("1. Log in");
         Consola.escriu("2.Sign up");
         Consola.escriu("3. Exit application");
-        
-        Consola.escriu("Insert the index of the option you want to do: ");
-        
-        int index;
-        index = Consola.llegeixInt();
-        index = checkNumber(index, 3);
-        selectOptionMenuUser(index);
     }
     
-    private void selectOptionMenuUser(int index){
-        while(index!=3){
+    private void selectOptionMenuUser(){
+        int index = 0;
+        do{
+            showUserMenu();
+            Consola.escriu("Insert the index of the option you want to do: ");
+        
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 3);
+            
             switch(index){
                 case 1: 
                     Consola.escriu("Log in");
@@ -437,17 +437,9 @@ public class Motorentals {
                 case 3:
                     Consola.escriu("Exit application");
                     break;
-            }
-            
-            Consola.escriu("1. Log in");
-            Consola.escriu("2.Sign up");
-            Consola.escriu("3. Exit application");
-        
-            Consola.escriu("Insert the index of the option you want to do: ");
-            index = Consola.llegeixInt();
-            index = checkNumber(index, 3);
-            
-        }
+                }
+           
+        }while(index!=3);
     }
     
     private void showClientMenu(){
@@ -460,75 +452,74 @@ public class Motorentals {
         Consola.escriu("7. See reserve");
         Consola.escriu("8. Log Out");
         
-        Consola.escriu("Insert the index of the option you want to do.");
-        
-        int index;
-        index = Consola.llegeixInt();
-        index = checkNumber(index, 8);
-        selectOptionMenuClient(index);
     }
     
-    private void selectOptionMenuClient(int index){
-        switch (index){
-            case 1: 
-                Consola.escriu("Admin information");
-                break;
-            case 2: 
-                Consola.escriu("Discharge account");
-                break;
-            case 3: 
-                Consola.escriu("Book");
-                book();
-                break;
-            case 4: 
-                Consola.escriu("Modify Arrival");
-                break;
-            case 5: 
-                Consola.escriu("Cancel Reserve");
-                break;
-            case 6:
-                Consola.escriu("See code");
-                break;
-            case 7:
-                Consola.escriu("See Reserve");
-                break;
-            case 8:
-                Consola.escriu("Log Out");
-                break;
-        }
+    private void selectOptionMenuClient(){
+        int index = 0;
+        do {
+            Consola.escriu("Insert the index of the option you want to do.");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 8);
+            
+            switch (index){
+                case 1: 
+                    Consola.escriu("Admin information");
+                    break;
+                case 2: 
+                    Consola.escriu("Discharge account");
+                    break;
+                case 3: 
+                    Consola.escriu("Book");
+                    book();
+                    break;
+                case 4: 
+                    Consola.escriu("Modify Arrival");
+                    break;
+                case 5: 
+                    Consola.escriu("Cancel Reserve");
+                    break;
+                case 6:
+                    Consola.escriu("See code");
+                    break;
+                case 7:
+                    Consola.escriu("See Reserve");
+                    break;
+                case 8:
+                    Consola.escriu("Log Out");
+                    break;
+            }
+        } while (index!=8);
     }
     
     private void showManagerMenu(){
         Consola.escriu("1. Pick Up Moto");
         Consola.escriu("2. Give Moto");
         Consola.escriu("3. Change Moto Status");
-        Consola.escriu("4. Log out");
-        
-        Consola.escriu("Insert the index of the option you want to do");
-        
-        int index;
-        index = Consola.llegeixInt();
-        index = checkNumber(index, 4);
-        
-        selectOptionMenuManager(index);
-        
+        Consola.escriu("4. Log out");  
     }
     
-    private void selectOptionMenuManager(int index){
-        switch(index){
-            case 1: 
-                Consola.escriu("Pick up moto");
-                break;
-            case 2:
-                Consola.escriu("Give Moto");
-                break;
-            case 3:
-                Consola.escriu("Change Moto Status");
-                break;
-            case 4:
-                Consola.escriu("Log out");
-                break;
-        }
+    private void selectOptionMenuManager(){
+        int index = 0;
+        
+        do{
+            Consola.escriu("Insert the index of the option you want to do");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 4);
+            switch(index){
+                case 1: 
+                    Consola.escriu("Pick up moto");
+                    break;
+                case 2:
+                    Consola.escriu("Give Moto");
+                    break;
+                case 3:
+                    Consola.escriu("Change Moto Status");
+                    break;
+                case 4:
+                    Consola.escriu("Log out");
+                    break;
+            }
+        }while(index!=4);
     }
     
     private void showAdminMenu(){
@@ -538,40 +529,41 @@ public class Motorentals {
         Consola.escriu("4. Add moto");
         Consola.escriu("5. Remove moto");
         Consola.escriu("6. Log out");
-        
-        Consola.escriu("Insert the index of the option you want to do");
-        
-        int index;
-        index = Consola.llegeixInt();
-        index = checkNumber(index, 6);
-        
-        selectOptionAdminMenu(index);
     }
     
-    private void selectOptionAdminMenu(int index){
-        switch(index){
-            case 1: 
-                Consola.escriu("Load data");
-                break;
-            case 2:
-                Consola.escriu("See motos");
-                break;
-            case 3:
-                Consola.escriu("Admin distribution");
-                break;
-            case 4: 
-                Consola.escriu("Add moto");
-                break;
-            case 5:
-                Consola.escriu("Remove moto");
-                break;
-            case 6:
-                Consola.escriu("Log out");
-                break;
-        }
+    private void selectOptionAdminMenu(){
+        int index = 0;
+        do{
+            Consola.escriu("Insert the index of the option you want to do");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 6);
+            switch(index){
+                case 1: 
+                    Consola.escriu("Load data");
+                    break;
+                case 2:
+                    Consola.escriu("See motos");
+                    break;
+                case 3:
+                    Consola.escriu("Admin distribution");
+                    break;
+                case 4: 
+                    Consola.escriu("Add moto");
+                    break;
+                case 5:
+                    Consola.escriu("Remove moto");
+                    break;
+                case 6:
+                    Consola.escriu("Log out");
+                    break;
+            }
+        }while(index!=6);
                 
     }
     
+   /**
+    * 
+    */
     
     private void book(){
         boolean r = ((Client)current).hasActiveReserve();
