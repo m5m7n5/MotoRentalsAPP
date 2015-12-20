@@ -18,6 +18,18 @@ public class Moto {
     private Model model;
     private MotoStatus status;
 
+    public Moto(String id, String matri, String c, String marca, String modelo,Boolean estado,String estadoDesc){
+        idMoto = id;
+        plate = matri;
+        color = c;
+        model = new Model();
+        if(estado){
+            status = new AvailableStatus(estadoDesc);
+        }else{
+            status = new NonAvailableStatus(estadoDesc);
+        }
+    }
+    
     public void printInfoMoto() {
         model.printInfoModel();
         Consola.escriu("License plate:"+plate);

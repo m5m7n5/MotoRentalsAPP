@@ -7,7 +7,6 @@ package Controlador;
 
 import Model.Admin;
 import Model.Client;
-import Model.Date;
 import Model.Local;
 import Model.Manager;
 import Model.Moto;
@@ -53,7 +52,7 @@ public class Motorentals {
     }
     
     public void run(){
-        this.showUserMenu();
+        this.selectOptionMenuUser();
     }
     
     /*-------------------------------------------------------------*/
@@ -156,17 +155,17 @@ public class Motorentals {
             if(((Client)pers).canLogIn()){
                 //Succeed, the client can log in and is now in use of our application.
                 current = pers;
-                showClientMenu();
+                selectOptionMenuClient();
             } else {
                 //Our client can log in =( Inform him/her.
                 Consola.escriu("You have 3 admonishes, you can't log in, sorry.");
             }
         } else if (pers instanceof Manager && tries < 3){
             current = pers;
-            showManagerMenu();
+            selectOptionMenuManager();
         } else if (pers instanceof Admin && tries < 3){
             current = pers;
-            showAdminMenu(); 
+            selectOptionMenuAdmin(); 
         } else {
             Consola.escriu("You've exceeded the maximum permited tries");
         }
@@ -412,7 +411,7 @@ public class Motorentals {
     
     private void showUserMenu(){
         Consola.escriu("1. Log in");
-        Consola.escriu("2.Sign up");
+        Consola.escriu("2. Sign up");
         Consola.escriu("3. Exit application");
     }
     
@@ -457,6 +456,7 @@ public class Motorentals {
     private void selectOptionMenuClient(){
         int index = 0;
         do {
+            showClientMenu();
             Consola.escriu("Insert the index of the option you want to do.");
             index = Consola.llegeixInt();
             index = checkNumber(index, 8);
@@ -502,6 +502,7 @@ public class Motorentals {
         int index = 0;
         
         do{
+            showManagerMenu();
             Consola.escriu("Insert the index of the option you want to do");
             index = Consola.llegeixInt();
             index = checkNumber(index, 4);
@@ -532,9 +533,10 @@ public class Motorentals {
         Consola.escriu("6. Log out");
     }
     
-    private void selectOptionAdminMenu(){
+    private void selectOptionMenuAdmin(){
         int index = 0;
         do{
+            showAdminMenu();
             Consola.escriu("Insert the index of the option you want to do");
             index = Consola.llegeixInt();
             index = checkNumber(index, 6);
@@ -855,6 +857,14 @@ public class Motorentals {
             }
         }
         return found;
+    }
+
+    public void addLocal(Local l) {
+        lstLocal.add(l);
+    }
+
+    public void addMotoToLocalFromParser(Moto m) {
+        lstLocal.get(lstLocal.size()-1).addMoto(m);
     }
 }
   

@@ -1,5 +1,6 @@
 package Controlador;
 
+import Model.Address;
 import Model.Admin;
 import Model.Client;
 import Model.Local;
@@ -54,12 +55,17 @@ public class MotoRentDataManager {
 		/*  TODO: A partir d'aqui creeu el vostre objecte que contingui la informacio
 		 *
 		 */
-
-		Consola.escriu("\nlocal amb ID: " + id + "\n");
-		Consola.escriu("--------------------------------------------------\n");
-		Consola.escriu("Capacitat: " + capacitat + "\n");
-		Consola.escriu("Gestor ID: " + gestorID + "\n");
-		Consola.escriu("Adreça: " + adreca + "\n");
+            
+                Motorentals motorent = Motorentals.getInstance();
+                /*
+		Consola.escriu("\nlocal amb ID: " + id);
+		Consola.escriu("--------------------------------------------------");
+		Consola.escriu("Capacitat: " + capacitat);
+		Consola.escriu("Gestor ID: " + gestorID);
+		Consola.escriu("Adreça: " + adreca);
+                */
+                Local l = new Local(id,Integer.parseInt(capacitat),new Address(adreca),null);
+                motorent.addLocal(l);
 	}
 
 	/**
@@ -77,14 +83,22 @@ public class MotoRentDataManager {
 
 		/* TODO: Aqui feu el necessari per a crear les vostres motos
 		 */
-
-		Consola.escriu("\nmoto amb ID: " + id + "\n");
-		Consola.escriu("--------------------------------------\n");
-		Consola.escriu("Matrícula: " + matricula + "\n");
-                Consola.escriu("Marca: " + marca + "\n");
-                Consola.escriu("Model: " + model + "\n");
-                Consola.escriu("Color: " + color + "\n");
-		Consola.escriu("Estat: " + estat + "\n");
+                Motorentals motorent = Motorentals.getInstance();
+                /*
+		Consola.escriu("\nmoto amb ID: " + id);
+		Consola.escriu("--------------------------------------");
+		Consola.escriu("Matrícula: " + matricula);
+                Consola.escriu("Marca: " + marca);
+                Consola.escriu("Model: " + model);
+                Consola.escriu("Color: " + color);
+		Consola.escriu("Estat: " + estat);
+                */
+                Boolean estado = true;
+                if(estat == "avariada"){
+                    estado = false;
+                }
+                Moto m = new Moto(id,matricula,color,marca,model,estado,estat);
+                motorent.addMotoToLocalFromParser(m);
 	}
 
 	/**
@@ -105,18 +119,18 @@ public class MotoRentDataManager {
 		 */
 		Motorentals motorent = Motorentals.getInstance();
                 /*
-                Consola.escriu("\nReserva amb ID: " + id + "\n");
-		Consola.escriu("--------------------------------------\n");
-		Consola.escriu("Client: " + client + "\n");
-		Consola.escriu("Moto: " + moto + "\n");
-                Consola.escriu("Cost: " + cost + "\n");
-                Consola.escriu("Faltes: " + falta + "\n");
-		Consola.escriu("Local d'inici: " + local_inici + "\n");
-		Consola.escriu("Hora d'inici: " + hora_inici + "\n");
-		Consola.escriu("Data d'inici: " + fecha_inici + "\n");
-		Consola.escriu("Local de finalització: " + local_fi + "\n");
-		Consola.escriu("Hora de finalització: " + hora_fi + "\n");
-		Consola.escriu("Data de finalització: " + fecha_fi + "\n");
+                Consola.escriu("\nReserva amb ID: " + id);
+		Consola.escriu("--------------------------------------");
+		Consola.escriu("Client: " + client);
+		Consola.escriu("Moto: " + moto);
+                Consola.escriu("Cost: " + cost);
+                Consola.escriu("Faltes: " + falta);
+		Consola.escriu("Local d'inici: " + local_inici);
+		Consola.escriu("Hora d'inici: " + hora_inici);
+		Consola.escriu("Data d'inici: " + fecha_inici);
+		Consola.escriu("Local de finalització: " + local_fi);
+		Consola.escriu("Hora de finalització: " + hora_fi);
+		Consola.escriu("Data de finalització: " + fecha_fi);
                 */
                 Local li = motorent.getLocalById(local_inici);
                 Local le = motorent.getLocalById(local_fi);
@@ -162,11 +176,11 @@ public class MotoRentDataManager {
 		 */
                 Motorentals motorent = Motorentals.getInstance();
                 /*
-		Consola.escriu("\nAdmin ID: " + id + "\n");
-		Consola.escriu("-----------------\n");
-		Consola.escriu("Nom: " + nom + "\n");
-		Consola.escriu("Usuari: " + usuari + "\n");
-		Consola.escriu("Password: " + password + "\n");
+		Consola.escriu("\nAdmin ID: " + id);
+		Consola.escriu("-----------------");
+		Consola.escriu("Nom: " + nom);
+		Consola.escriu("Usuari: " + usuari);
+		Consola.escriu("Password: " + password);
                 */
                 Admin a = new Admin(usuari,password,nom,id);
                 motorent.addAdmin(a);
@@ -186,11 +200,11 @@ public class MotoRentDataManager {
 		 */
                 Motorentals motorent = Motorentals.getInstance();
                 /*
-		Consola.escriu("\nGestor ID: " + id + "\n");
-		Consola.escriu("-----------------\n");
-		Consola.escriu("Nom: " + nom + "\n");
-		Consola.escriu("Usuari: " + usuari + "\n");
-		Consola.escriu("Password: " + password + "\n");
+		Consola.escriu("\nGestor ID: " + id);
+		Consola.escriu("-----------------");
+		Consola.escriu("Nom: " + nom);
+		Consola.escriu("Usuari: " + usuari);
+		Consola.escriu("Password: " + password);
                 */
                 Manager m = new Manager(usuari,password,nom,id);
                 
@@ -218,7 +232,7 @@ public class MotoRentDataManager {
 		 */
 		
                 Motorentals motorent = Motorentals.getInstance();
-                
+                /*
                 Consola.escriu("\nClient ID: " + id);
 		Consola.escriu("-----------------");
 		Consola.escriu("Nom: " + nom);
@@ -229,7 +243,7 @@ public class MotoRentDataManager {
 		Consola.escriu("Es VIP: " + vip);
 		Consola.escriu("Renovació automàtica: " + renovacio);
 		Consola.escriu("Nombre de faltes: " + faltes);
-                
+                */
                 String name=nom.split(" ")[0];
                 String surname=nom.split(" ")[1];
                 Client c;

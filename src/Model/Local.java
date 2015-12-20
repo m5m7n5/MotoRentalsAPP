@@ -23,7 +23,11 @@ public class Local {
         this.idLocal = idLocal;
         this.maxMoto = maxMoto;
         this.add = add;
-        this.lstMotos = lstMotos;
+        if(lstMotos == null){
+            this.lstMotos = new ArrayList<Moto>();
+        }else{
+            this.lstMotos = lstMotos;
+        }
     }
 
     public Moto getMotoByIndex(int index) {
