@@ -49,6 +49,14 @@ public class Client extends Person{
     public boolean compareByDni(String dni){
         return(DNI.endsWith(dni));
     }
+    
+    /**
+     * Method that allows us to check if the client can log in, id est, has less than 3 admonishes.
+     * @return boolean true if the client can log in, false otherwise
+     */
+    public boolean canLogIn(){
+        return (numberAdmonish < 3);
+    }
     /**
      * Method that returns true if the client has an active reserve or false otherwise.
      * @return 
