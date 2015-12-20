@@ -140,10 +140,6 @@ public class Client extends Person{
         
     }
 
-    public void printActiveReserve() {
-        this.active.printInfoReserve();
-    }
-
     public void delay() {
         int numhorastard = 0;
         int numdiastard = 0;
@@ -185,4 +181,33 @@ public class Client extends Person{
         this.active.removeDelay();
     }
     
+    /**
+     * Method that calculated the total bill of a client given a month and a year.
+     * it also prints the client's reserves' information.
+     * @param m
+     * @param a 
+     */
+    public void printReservesByMonthYear(int m, int a) {
+        int total = 0;
+        int amount;
+        
+        for(Reserve r: lstDone){
+            amount = r.printReserveByMontYear(m, a);
+            total += amount;
+        }
+        
+        Consola.escriu("Month bill: ");
+        Consola.escriu(total);
+    }
+    
+    public void printActiveReserve() {
+        this.active.printInfoReserve();
+    }
+    
+    public void printDNI(){
+        Consola.escriu("DNI: "+this.DNI);
+    }
+
+
+
 }

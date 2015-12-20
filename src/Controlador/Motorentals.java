@@ -508,6 +508,7 @@ public class Motorentals {
             switch(index){
                 case 1: 
                     Consola.escriu("Pick up moto");
+                    pickUpMoto();
                     break;
                 case 2:
                     Consola.escriu("Give Moto");
@@ -543,6 +544,7 @@ public class Motorentals {
                     break;
                 case 2:
                     Consola.escriu("See motos");
+                    seeMotos();
                     break;
                 case 3:
                     Consola.escriu("Admin distribution");
@@ -689,6 +691,42 @@ public class Motorentals {
         //Print the motos currently being driven.
         for(Moto m: lstDriving){
             m.printInfoMoto();
+        }
+    }
+    
+    private void seeReport(){
+        int m, a;
+        boolean check = false;
+        m = 0;
+        a = 0;
+        
+        //Ask for a month until the number of the month is correct.
+        while (!check){
+            Consola.escriu("Insert the number of the month you would like to see");
+            m = Consola.llegeixInt();
+            if ( (0 < m) && ( m < 13) ){
+                check = true;
+            } else {
+                Consola.escriu("Your number is incorrect. Please, try it again");
+            }
+        }
+        
+        check = false;
+        //Ask for a year until the number of the year is correct.
+        while (!check){
+            Consola.escriu("Insert the number of the year you would like to check");
+            a = Consola.llegeixInt();
+            
+            if (a == 2015){
+                check = true;
+            } else {
+                Consola.escriu("Your number is incorrect. Please, try it again");
+            }
+        }
+        for(Client c: lstClient){
+            c.printDNI();
+            Consola.escriu("Reserves done by this client");
+            c.printReservesByMonthYear(m, a);
         }
     }
 

@@ -69,4 +69,43 @@ public class Reserve {
     public void removeDelay() {
         this.delay = null;
     }
+    
+    public int printReserveByMontYear(int m, int a){
+        boolean check;
+        int priceD, priceA, total;
+        priceD = 0;
+        priceA = 0;
+        total = 0;
+        
+        //Check if the end date has the same month and year
+        //Months are indexed from 0 to 11 in java, so we have to add 1 to de date we obtain
+        check = (endDate.get(Calendar.MONTH) + 1 == m) && (endDate.get(Calendar.YEAR) == a);
+        if (check){
+            //This function is used in much other cases, so it is not a support function.
+            //But it's useful here, so he use the same function instead of writing more prints.
+            printInfoReserve();
+            if (delay != null){
+                Consola.escriu("This reserve has had a delay");
+                priceD = delay.getPrice();
+                Consola.escriu("The cost of the delay is: ");
+                Consola.escriu(priceD);
+            } else {
+                Consola.escriu("This reserve hasn't had delay");
+            }
+            
+            if (admonish != null){
+                Consola.escriu("The client returned the moto with flaws");
+                priceA = admonish.getPrice();
+                Consola.escriu("The cost of the admonish is: ");
+                Consola.escriu(priceA);
+            }
+            total = this.price.getAmount();
+            total = total + priceA + priceD;
+            Consola.escriu("total reserve cost: ");
+            Consola.escriu(total);
+        }
+        //If this reserve hasn't happened in the given month/year
+        //we will return a 0, so it's ok.
+        return total;
+    }
 }

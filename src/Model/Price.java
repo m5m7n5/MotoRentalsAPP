@@ -17,4 +17,11 @@ public class Price {
         this.amount = amount;
         this.money = null;
     }
+    /**
+     * Return the amount of the price
+     * @return amount
+     */
+    public int getAmount(){
+        return amount;
+    }
 }
