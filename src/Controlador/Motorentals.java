@@ -151,8 +151,16 @@ public class Motorentals {
          */
         
         if (pers instanceof Client && tries < 3){
-            current = pers; //This will be our current user
-            showClientMenu();
+            //Given the client, we have to check if he can logIn
+            //id est, if he has less than 3 admonishes.
+            if(((Client)pers).canLogIn()){
+                //Succeed, the client can log in and is now in use of our application.
+                current = pers;
+                showClientMenu();
+            } else {
+                //Our client can log in =( Inform him/her.
+                Consola.escriu("You have 3 admonishes, you can't log in, sorry.");
+            }
         } else if (pers instanceof Manager && tries < 3){
             current = pers;
             showManagerMenu();
@@ -322,6 +330,9 @@ public class Motorentals {
         }
     }
     
+    /**
+     * Admin method. It allows the admin to recieve a moto from a client.
+     */
     public void pickUpMoto(){
         String code,answer;
         boolean check = false;
@@ -394,6 +405,7 @@ public class Motorentals {
             }
         }
     }
+    
     /*------------------------------------------------------------*/
     /* --------------   Menus and Select Options -----------------*/
     /*------------------------------------------------------------*/
@@ -560,20 +572,6 @@ public class Motorentals {
                 
     }
     
-
-    
-    public int checkNumber(int index, int max){
-        boolean correct = false;
-        while (!correct){
-            if (1 <= index && index <= max){
-                correct = true;
-            } else {
-                System.out.println("Invalid index, please try again");
-                index = Consola.llegeixInt();
-            }
-        }
-        return index;
-    }
     
     private void book(){
         boolean r = ((Client)current).hasActiveReserve();
@@ -683,22 +681,23 @@ public class Motorentals {
         return motoreta;
     }
 
-    private boolean checkYesNo(String chr) {
-        boolean correct = false;
-        boolean found = true;
-        while(!correct){
-            if(chr == "S"){
-                correct = true;
-                found = true;
-            }else if(chr == "N"){
-                correct = true;
-                found = false;
-            }else{
-                Consola.escriu("Invalid char, try again.");
-                chr = Consola.llegeixString();
-            }
+    /**
+     * Method that allows the admin to see all the motos.
+     */
+    private void seeMotos(){
+        //Print the motos located in locals.
+        for(Local l: lstLocal){
+            //First, let the admin know in which local are the motos.
+            l.printInfoLocal();
+            
+            //Second, lets print all the motos
+            l.printMotoList();
         }
-        return found;
+        
+        //Print the motos currently being driven.
+        for(Moto m: lstDriving){
+            m.printInfoMoto();
+        }
     }
 
     public void addManager(Manager m) {
@@ -734,6 +733,22 @@ public class Motorentals {
         }
     }
 
+
+    private void pickUpMakeChange(Moto m, Local lend) {
+        lend.addMoto(m);
+        this.lstDriving.remove(m);
+    }
+    
+    /*------------------------------------------------------------*/
+    /* ------------------  Control functions ---------------------*/
+    /*------------------------------------------------------------*/
+    
+    
+    /**
+     * Method that, given a code checks if it exists
+     * @param code
+     * @return a correct code or an empty string.
+     */
     private String checkCode(String code) {
        boolean check = false;
        boolean ans;
@@ -769,10 +784,47 @@ public class Motorentals {
        return rCode;
     }    
 
-    private void pickUpMakeChange(Moto m, Local lend) {
-        lend.addMoto(m);
-        this.lstDriving.remove(m);
+    
+    /**
+     * Given a number, it checks if it is within a range.
+     * @param index the number we want to check
+     * @param max maximum value 
+     * @return the correct index
+     */
+    public int checkNumber(int index, int max){
+        boolean correct = false;
+        while (!correct){
+            if (1 <= index && index <= max){
+                correct = true;
+            } else {
+                System.out.println("Invalid index, please try again");
+                index = Consola.llegeixInt();
+            }
+        }
+        return index;
     }
-
+    
+    /**
+     * Method that compares a string to an N or an S.
+     * @param chr we want to compare
+     * @return true if the answer is S, false if the answer is N.
+     */
+    private boolean checkYesNo(String chr) {
+        boolean correct = false;
+        boolean found = true;
+        while(!correct){
+            if("S".equals(chr)){
+                correct = true;
+                found = true;
+            }else if("N".equals(chr)){
+                correct = true;
+                found = false;
+            }else{
+                Consola.escriu("Invalid char, try again.");
+                chr = Consola.llegeixString();
+            }
+        }
+        return found;
+    }
 }
   

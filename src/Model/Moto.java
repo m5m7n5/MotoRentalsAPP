@@ -27,6 +27,7 @@ public class Moto {
 
     public boolean compareMotoById(String moto) {
         return moto.equals(this.idMoto);
+    }
     public void changeStatusNonAvailable() {
         String desc;
         Consola.escriu("Write a description of the status");

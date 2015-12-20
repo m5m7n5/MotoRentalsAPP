@@ -66,6 +66,8 @@ public class Local {
             }
         }
         return null;
+    }
+    
     public void addMoto(Moto m) {
         this.lstMotos.add(m);
     }
