@@ -346,7 +346,7 @@ public class Motorentals {
         
         code = this.checkCode(code);
         
-        if (code != ""){
+        if (!code.equals("")){
             for (int i=0; i<=this.lstClient.size() && !check; i++){
                 check = this.lstClient.get(i).compareCode(code);
                 
@@ -530,7 +530,8 @@ public class Motorentals {
         Consola.escriu("3. Admin distribution");
         Consola.escriu("4. Add moto");
         Consola.escriu("5. Remove moto");
-        Consola.escriu("6. Log out");
+        Consola.escriu("6. See report");
+        Consola.escriu("7. Log out");
     }
     
     private void selectOptionMenuAdmin(){
@@ -539,7 +540,7 @@ public class Motorentals {
             showAdminMenu();
             Consola.escriu("Insert the index of the option you want to do");
             index = Consola.llegeixInt();
-            index = checkNumber(index, 6);
+            index = checkNumber(index, 7);
             switch(index){
                 case 1: 
                     Consola.escriu("Load data");
@@ -558,10 +559,14 @@ public class Motorentals {
                     Consola.escriu("Remove moto");
                     break;
                 case 6:
+                    Consola.escriu("See report");
+                    seeReport();
+                    break;
+                case 7:
                     Consola.escriu("Log out");
                     break;
             }
-        }while(index!=6);
+        }while(index!=7);
                 
     }
     
@@ -869,6 +874,18 @@ public class Motorentals {
 
     public void addMotoToLocalFromParser(Moto m) {
         lstLocal.get(lstLocal.size()-1).addMoto(m);
+    }
+
+    public Moto searchMotoByIdInAllLocals(String moto) {
+        Moto m;
+        for(Local l:lstLocal){
+            m=l.getMotoById(moto);
+            if(m!=null){
+                return m;
+            }
+        }
+        System.out.println("ESTO NO DEBERIA OCURRIR");
+        return null;
     }
 }
   

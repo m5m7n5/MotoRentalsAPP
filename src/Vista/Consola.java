@@ -43,7 +43,7 @@ public class Consola {
     }
 
     public static void escriu(Calendar date){
-        System.out.print(date);
+        System.out.println(Integer.toString(date.get(Calendar.DAY_OF_MONTH))+"/"+Integer.toString(date.get(Calendar.MONTH)+1)+"/"+Integer.toString(date.get(Calendar.YEAR)));
     }
     /**
      * Llegeix un enter per teclat.

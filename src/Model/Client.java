@@ -81,7 +81,7 @@ public class Client extends Person{
          * Se tiene que poner el cantHoras, cantDias en función del date dado.
          * Necesitamos un objeto tipo date.
          */
-        Reserve reserve = new Reserve(localS, localE, date, date, motoreta);
+        Reserve reserve = new Reserve(localS, localE, date, motoreta, cantHoras, cantDias);
         active = reserve;
     }
     

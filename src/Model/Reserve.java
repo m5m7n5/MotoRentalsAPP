@@ -31,6 +31,15 @@ public class Reserve {
         endDate = dateE;
         this.moto = moto;
     }
+    
+    public Reserve (Local localS, Local localA, Calendar dateS, Moto moto,int cantHoras,int cantDias){
+        start = localS;
+        arrival = localA;
+        startDate = dateS;
+        //endDate = caca;
+        this.moto = moto;
+        price = new Price(2*cantHoras+48*cantDias);
+    }
 
     public boolean compareCode(String code) {
         return (code == this.code);
@@ -82,7 +91,7 @@ public class Reserve {
         check = (endDate.get(Calendar.MONTH) + 1 == m) && (endDate.get(Calendar.YEAR) == a);
         if (check){
             //This function is used in much other cases, so it is not a support function.
-            //But it's useful here, so he use the same function instead of writing more prints.
+            //But it's useful here, so we use the same function instead of writing more prints.
             printInfoReserve();
             if (delay != null){
                 Consola.escriu("This reserve has had a delay");

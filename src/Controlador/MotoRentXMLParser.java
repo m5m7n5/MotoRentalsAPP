@@ -46,11 +46,12 @@ public class MotoRentXMLParser {
 			doc.getDocumentElement().normalize();
 
 			// Obtenim dades
+                        this.obtenirClients(doc);
 			this.obtenirLocals(doc);
 			this.obtenirReserves(doc);
 			this.obtenirAdministradors(doc);
 			this.obtenirGestors(doc);
-			this.obtenirClients(doc);
+			
 		}
 		catch (SAXParseException err) {
 			System.out.println ("** Error parsejant" +", linia " + err.getLineNumber () + ", uri " + err.getSystemId ());

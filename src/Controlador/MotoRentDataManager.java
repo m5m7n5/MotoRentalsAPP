@@ -134,7 +134,6 @@ public class MotoRentDataManager {
                 */
                 Local li = motorent.getLocalById(local_inici);
                 Local le = motorent.getLocalById(local_fi);
-                Moto m = li.getMotoById(moto);
                 Calendar dataS = Calendar.getInstance();
                 String[] s = fecha_inici.split("/");
                 String[] l = hora_inici.split(":");
@@ -142,7 +141,7 @@ public class MotoRentDataManager {
                 if(Integer.parseInt(l[1])>30){
                     h++;
                 }
-                dataS.set(Integer.parseInt(s[2]),Integer.parseInt(s[1]),Integer.parseInt(s[0]),h,0);
+                dataS.set(Integer.parseInt(s[2]),Integer.parseInt(s[1])-1,Integer.parseInt(s[0]),h,0);
                 
                 Calendar dataE = Calendar.getInstance();
                 s = fecha_fi.split("/");
@@ -151,16 +150,15 @@ public class MotoRentDataManager {
                 if(Integer.parseInt(l[1])>30){
                     h++;
                 }
-                dataE.set(Integer.parseInt(s[2]),Integer.parseInt(s[1]),Integer.parseInt(s[0]),h,0);
+                dataE.set(Integer.parseInt(s[2]),Integer.parseInt(s[1])-1,Integer.parseInt(s[0]),h,0);
+                Moto m = motorent.searchMotoByIdInAllLocals(moto);
                 Reserve r = new Reserve(li,le,dataS,dataE,m);
                 if(dataE.after(Calendar.getInstance())){
-                    motorent.addActiveReserveToClient(client,r);
+                    motorent.addActiveReserveToClient(client,r); 
                 }else{
                     motorent.addReserveToClient(client,r);
                 }
-                
-                
-	}
+        }
 
 	/**
 	 * Crea un nou admin a partir de la informacio obtinguda del fitxer XML
