@@ -62,9 +62,13 @@
 			<inici hora="01:20:01" local="l3" data="05/12/2015"></inici>
 			<fi hora="02:03:54" local="l4" data="05/12/2015"></fi>
 		</reserva>
-                <reserva id="r2" client="c3" moto="m16" cost="1" falta="0">
+                <reserva id="r3" client="c3" moto="m16" cost="1" falta="0">
 			<inici hora="09:20:06" local="l1" data="07/12/2015"></inici>
 			<fi hora="10:15:34" local="l4" data="07/12/2015"></fi>
+		</reserva>
+                <reserva id="r4" client="c2" moto="m16" cost="1" falta="0">
+			<inici hora="09:20:06" local="l1" data="07/11/2015"></inici>
+			<fi hora="10:15:34" local="l4" data="12/11/2015"></fi>
 		</reserva>
 	</reserves>
 	
