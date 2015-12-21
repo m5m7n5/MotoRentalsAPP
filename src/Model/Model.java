@@ -18,11 +18,19 @@ public class Model {
     private int horsepower;
     private int tank;
 
+    
+    public Model(String n, String f, int c, int h, int t){
+        name = n;
+        fuel = f;
+        cylinder = c;
+        horsepower = h;
+        tank = t;
+    }
     void printInfoModel() {
-        Consola.escriu("Model name"+name);
-        Consola.escriu("Fuel type"+fuel);
-        Consola.escriu("Tank capacity"+Integer.toString(tank));
-        Consola.escriu("Horsepower"+Integer.toString(horsepower));
-        Consola.escriu("Cylinder"+Integer.toString(cylinder));
+        Consola.escriu("Model name "+name);
+        Consola.escriu("Fuel type "+fuel);
+        Consola.escriu("Tank capacity "+Integer.toString(tank));
+        Consola.escriu("Horsepower "+Integer.toString(horsepower));
+        Consola.escriu("Cylinder "+Integer.toString(cylinder));
     }
 }

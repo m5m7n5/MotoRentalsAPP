@@ -681,11 +681,15 @@ public class Motorentals {
      * Method that allows the admin to see all the motos.
      */
     private void seeMotos(){
+        int i=0;
         //Print the motos located in locals.
         for(Local l: lstLocal){
             //First, let the admin know in which local are the motos.
+            i++;
+            Consola.escriu("------------");
+            Consola.escriu("Local " + i);
             l.printInfoLocal();
-            
+            Consola.escriu("------------");
             //Second, lets print all the motos
             l.printMotoList();
         }

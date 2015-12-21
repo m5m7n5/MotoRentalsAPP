@@ -22,7 +22,7 @@ public class Moto {
         idMoto = id;
         plate = matri;
         color = c;
-        model = new Model();
+        model = new Model(marca+" "+modelo,"",0,0,0);
         if(estado){
             status = new AvailableStatus(estadoDesc);
         }else{

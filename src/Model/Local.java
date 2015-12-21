@@ -54,8 +54,13 @@ public class Local {
     }
 
     public void printMotoList() {
+        int i=0;
         for(Moto m: lstMotos){
+            i++;
+            Consola.escriu("************");
+            Consola.escriu("Moto " + i);
             m.printInfoMoto();
+            Consola.escriu("************");
         }
     }
 
