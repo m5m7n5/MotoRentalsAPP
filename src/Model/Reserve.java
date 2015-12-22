@@ -30,13 +30,22 @@ public class Reserve {
         startDate = dateS;
         endDate = dateE;
         this.moto = moto;
+        long s = startDate.getTimeInMillis();
+        long e = endDate.getTimeInMillis();
+        e = e-s;
+        e=e/1000;
+        e=e/60;
+        int h = (int) ((int)(e/60)%60);
+        int d = (int) (e/3600);
+        price = new Price(2*h+48*d);
     }
     
     public Reserve (Local localS, Local localA, Calendar dateS, Moto moto,int cantHoras,int cantDias){
         start = localS;
         arrival = localA;
         startDate = dateS;
-        //endDate = caca;
+        endDate = Calendar.getInstance();
+        endDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)+cantDias, startDate.get(Calendar.HOUR_OF_DAY)+cantHoras, 0);
         this.moto = moto;
         price = new Price(2*cantHoras+48*cantDias);
     }
