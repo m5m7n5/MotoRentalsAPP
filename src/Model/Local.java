@@ -84,4 +84,8 @@ public class Local {
     public void removeMoto(Moto m) {
         this.lstMotos.remove(m);
     }
+
+    public int getQuantityMotos() {
+        return lstMotos.size();
+    }
 }

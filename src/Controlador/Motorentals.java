@@ -29,6 +29,13 @@ public class Motorentals {
     private ArrayList<Local> lstLocal;
     private Person current;
     
+    
+    
+    /*-------------------------------------------------------------*/
+    /* ----------- Constructor, Singleton and Run -----------------*/
+    /*-------------------------------------------------------------*/
+    
+    
     private Motorentals(){
         lstAdmin = new ArrayList<Admin>();
         lstManager = new ArrayList<Manager>();
@@ -38,6 +45,10 @@ public class Motorentals {
         current = null;
     }
     
+    /**
+     * Gets an instance from MotoRentals. Ensuring MotoRentals is a singleton. 
+     * @return 
+     */
     public static Motorentals getInstance(){
         if(instance == null){
             instance = new Motorentals();
@@ -47,18 +58,83 @@ public class Motorentals {
         return instance;
     }
     
+
+    /**
+     * Calls the first menu, first thing that we show. 
+     */
+    public void run(){
+        this.selectOptionMenuUser();
+    }
+
+    /*-------------------------------------------------------------*/
+    /* ------------ Needed functions to load data -----------------*/
+    /*-------------------------------------------------------------*/
+    
     public void addClient(Client c) {
        lstClient.add(c);
     }
     
-    public void run(){
-        this.selectOptionMenuUser();
+        public void addLocal(Local l) {
+        lstLocal.add(l);
     }
+
+    public void addMotoToLocalFromParser(Moto m) {
+        lstLocal.get(lstLocal.size()-1).addMoto(m);
+    }
+
+    public Moto searchMotoByIdInAllLocals(String moto) {
+        Moto m;
+        for(Local l:lstLocal){
+            m=l.getMotoById(moto);
+            if(m!=null){
+                return m;
+            }
+        }
+        System.out.println("ESTO NO DEBERIA OCURRIR");
+        return null;
+    }
+    
+    public void addManager(Manager m) {
+        lstManager.add(m);
+    }
+
+    public void addAdmin(Admin a) {
+        lstAdmin.add(a);
+    }
+
+    public Local getLocalById(String id) {
+        for(Local l:lstLocal){
+            if(l.compareLocalById(id)){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public void addReserveToClient(String client, Reserve r) {
+        for(Client c:lstClient){
+            if(c.compareById(client)){
+                c.addReserveDone(r);
+            }
+        }
+    }
+
+    public void addActiveReserveToClient(String client, Reserve r) {
+        for(Client c:lstClient){
+            if(c.compareById(client)){
+                c.setActiveReserve(r);
+            }
+        }
+    }
+
     
     /*-------------------------------------------------------------*/
     /* -------------------- LogIn & SignUp ------------------------*/
     /*-------------------------------------------------------------*/
     
+    /**
+     * A supposed existent user tries to login to our system.
+     */
     private void logIn(){
         boolean check;
         boolean exists = false;
@@ -171,7 +247,9 @@ public class Motorentals {
         }
            
     }
-    
+    /**
+     * An user can give his/her information and sign up to our application.
+     */
     private void signUp(){
         String name,surname,street,DNI, pobl, email, iban;
         String DNINumber;
@@ -329,8 +407,14 @@ public class Motorentals {
         }
     }
     
+    
+    /*-------------------------------------------------------------*/
+    /* ---------- Chore system methods implemented ----------------*/
+    /*-------------------------------------------------------------*/
+    
+    
     /**
-     * Admin method. It allows the admin to recieve a moto from a client.
+     * Manager method. It allows the admin to recieve a moto from a client.
      */
     public void pickUpMoto(){
         String code,answer;
@@ -405,7 +489,21 @@ public class Motorentals {
         }
     }
     
-    public void giveMoto(Client current){
+    /**
+     * Remove the moto from the driving list and adds it to the arrival local.
+     * @param m moto that is returned.
+     * @param lend local to which the moto is added. 
+     */
+    private void pickUpMakeChange(Moto m, Local lend) {
+        lend.addMoto(m);
+        this.lstDriving.remove(m);
+    }
+    
+    
+    /**
+     * The manager gives a moto to a client. The system updates its info.
+     */
+    public void giveMoto(){
         String code;
         boolean condition = false;
         Local localS;
@@ -431,175 +529,120 @@ public class Motorentals {
             }
         }
     }
-    /*------------------------------------------------------------*/
-    /* --------------   Menus and Select Options -----------------*/
-    /*------------------------------------------------------------*/
-    
-    private void showUserMenu(){
-        Consola.escriu("1. Log in");
-        Consola.escriu("2. Sign up");
-        Consola.escriu("3. Exit application");
+    /**
+     * Removes a moto from a local and adds it to the driving list.
+     * @param l local from which we remove the moto
+     * @param m moto that is now being driven. 
+     */
+    private void makeGiveChanges(Local l, Moto m) {
+        l.removeMoto(m);
+        lstDriving.add(m);
     }
     
-    private void selectOptionMenuUser(){
-        int index = 0;
-        do{
-            showUserMenu();
-            Consola.escriu("Insert the index of the option you want to do: ");
+    
+    /**
+     * The admin is allowed to switch motos between some locals. 
+     */
+    private void adminMoto(){
+        Moto m;
+        Local lStart, lEnd;
+        Boolean bool = true;
+        ArrayList lstLocal;
+        int size, num;
+        String answer;
         
-            index = Consola.llegeixInt();
-            index = checkNumber(index, 3);
+        /**
+         * TO DO: Si las listas están vacías, hay que salir de la opción porque no se pueden mover motos.
+         */
+        
+        //We will do this until the admin doesn't want to move more motos.
+        while (bool){
+            //From which locals can we move motos? Take them and put them in a list.
+            lstLocal = getStartAvailableLocals();
+            Consola.escriu("\n You can move motos from these locals: ");
+            printLocalList(lstLocal);
+            Consola.escriu("\n Insert the number of the index of your prefered local");
+            num = Consola.llegeixInt();
+            size = lstLocal.size();
+            //Let's check if the index inserted is correct:
+            num = checkNumber(num, size);
+            lStart = getLocalByIndex(lstLocal, num);
             
-            switch(index){
-                case 1: 
-                    Consola.escriu("Log in");
-                    logIn();
-                    break;
-                case 2:
-                    Consola.escriu("Sign up");
-                    signUp();
-                    break;
-                case 3:
-                    Consola.escriu("Exit application");
-                    break;
-                }
-           
-        }while(index!=3);
-    }
-    
-    private void showClientMenu(){
-        Consola.escriu("1. Admin information");
-        Consola.escriu("2. Discharge account");
-        Consola.escriu("3. Book");
-        Consola.escriu("4. Modify Arrival");
-        Consola.escriu("5. Cancel Reserve");
-        Consola.escriu("6. See code");
-        Consola.escriu("7. See reserve");
-        Consola.escriu("8. Log Out");
-        
-    }
-    
-    private void selectOptionMenuClient(){
-        int index = 0;
-        do {
-            showClientMenu();
-            Consola.escriu("Insert the index of the option you want to do.");
-            index = Consola.llegeixInt();
-            index = checkNumber(index, 8);
+            //Obtain the moto the admin wants to move:
+            Consola.escriu("\n --->These are the motos you can move: ");
+            lStart.printMotoList();
+            Consola.escriu("\n Insert the number of the index of the moto you want to move: ");
+            num = Consola.llegeixInt();
+            size = lStart.getQuantityMotos();
+            //Check that the index is correct
+            num = checkNumber(num, size);
+            m = lStart.getMotoByIndex(num);
             
-            switch (index){
-                case 1: 
-                    Consola.escriu("Admin information");
-                    break;
-                case 2: 
-                    Consola.escriu("Discharge account");
-                    break;
-                case 3: 
-                    Consola.escriu("Book");
-                    book();
-                    break;
-                case 4: 
-                    Consola.escriu("Modify Arrival");
-                    break;
-                case 5: 
-                    Consola.escriu("Cancel Reserve");
-                    break;
-                case 6:
-                    Consola.escriu("See code");
-                    break;
-                case 7:
-                    Consola.escriu("See Reserve");
-                    break;
-                case 8:
-                    Consola.escriu("Log Out");
-                    break;
-            }
-        } while (index!=8);
-    }
-    
-    private void showManagerMenu(){
-        Consola.escriu("1. Pick Up Moto");
-        Consola.escriu("2. Give Moto");
-        Consola.escriu("3. Change Moto Status");
-        Consola.escriu("4. Log out");  
-    }
-    
-    private void selectOptionMenuManager(){
-        int index = 0;
-        
-        do{
-            showManagerMenu();
-            Consola.escriu("Insert the index of the option you want to do");
-            index = Consola.llegeixInt();
-            index = checkNumber(index, 4);
-            switch(index){
-                case 1: 
-                    Consola.escriu("Pick up moto");
-                    pickUpMoto();
-                    break;
-                case 2:
-                    Consola.escriu("Give Moto");
-                    break;
-                case 3:
-                    Consola.escriu("Change Moto Status");
-                    break;
-                case 4:
-                    Consola.escriu("Log out");
-                    break;
-            }
-        }while(index!=4);
-    }
-    
-    private void showAdminMenu(){
-        Consola.escriu("1. Load data");
-        Consola.escriu("2. See motos");
-        Consola.escriu("3. Admin distribution");
-        Consola.escriu("4. Add moto");
-        Consola.escriu("5. Remove moto");
-        Consola.escriu("6. See report");
-        Consola.escriu("7. Log out");
-    }
-    
-    private void selectOptionMenuAdmin(){
-        int index = 0;
-        do{
-            showAdminMenu();
-            Consola.escriu("Insert the index of the option you want to do");
-            index = Consola.llegeixInt();
-            index = checkNumber(index, 7);
-            switch(index){
-                case 1: 
-                    Consola.escriu("Load data");
-                    break;
-                case 2:
-                    Consola.escriu("See motos");
-                    seeMotos();
-                    break;
-                case 3:
-                    Consola.escriu("Admin distribution");
-                    break;
-                case 4: 
-                    Consola.escriu("Add moto");
-                    break;
-                case 5:
-                    Consola.escriu("Remove moto");
-                    break;
-                case 6:
-                    Consola.escriu("See report");
-                    seeReport();
-                    break;
-                case 7:
-                    Consola.escriu("Log out");
-                    break;
-            }
-        }while(index!=7);
+            //To which locals can we move motos? Take them and put them in list.
+            lstLocal= getEndAvailableLocals();
+            Consola.escriu("\n You can move motos to these locals: ");
+            printLocalList(lstLocal);
+            Consola.escriu("\n Insert the number of the index of your prefered local");
+            num = Consola.llegeixInt();
+            size = lstLocal.size();
+            //Let's check if the index inserted is correct:
+            num = checkNumber(num, size);
+            lEnd = getLocalByIndex(lstLocal, num);
+            
+            /**
+             * LOTS of prints!!
+             */
+            Consola.escriu("*********************");
+            Consola.escriu("These are the changes you are about to do: ");
+            Consola.escriu("*********************");
+            
+            Consola.escriu("\n You will move a moto from the local: ");
+            lStart.printInfoLocal();
+            
+            Consola.escriu("*********************");
+            
+            Consola.escriu("\n You will move the moto: ");
+            m.printInfoMoto();
+            
+            Consola.escriu("*********************");
+            
+            Consola.escriu("\n You will move the moto to the local: ");
+            lEnd.printInfoLocal();
+            
+            Consola.escriu("*********************");
+            
+            Consola.escriu("Insert an S to confirm the changes or an N to discard them ");
+            answer = Consola.llegeixString();
+            //Let's check if the admin wants to confirm the changes.
+            //If we have a true, we keep doing it.
+            //If we have a false, the admin doesn't want to make changes.
+            bool = checkYesNo(answer);
+            if (bool){
+                changeMoto(lStart, lEnd, m);
                 
+                Consola.escriu("\n *** The change has been done correctly! ***");
+                Consola.escriu("Insert an S to keep moving motos, an N otherwise");
+                answer = Consola.llegeixString();
+                //Same scenario here. If we have a true, the admin wants to make more changes.
+                bool = checkYesNo(answer);
+            }
+        }
     }
     
-   /**
-    * 
-    */
+    /**
+     * Simple function, removes a moto from a Local and adds it to another local.
+     * @param lStart local from which we remove a moto.
+     * @param lEnd local to which we add a moto.
+     * @param m moto we are moving.
+     */
+    private void changeMoto(Local lStart, Local lEnd, Moto m){
+        lStart.removeMoto(m);
+        lEnd.addMoto(m);
+    }
     
+    /**
+     * The client can book a moto if he/she hasn't an active reserve.
+     */
     private void book(){
         boolean r = ((Client)current).hasActiveReserve();
         boolean correct = false;
@@ -731,6 +774,9 @@ public class Motorentals {
         }
     }
     
+    /**
+     * The admin can see a report of a given month and year. 
+     */
     private void seeReport(){
         int m, a;
         boolean check = false;
@@ -767,45 +813,7 @@ public class Motorentals {
         }
     }
 
-    public void addManager(Manager m) {
-        lstManager.add(m);
-    }
 
-    public void addAdmin(Admin a) {
-        lstAdmin.add(a);
-    }
-
-    public Local getLocalById(String id) {
-        for(Local l:lstLocal){
-            if(l.compareLocalById(id)){
-                return l;
-            }
-        }
-        return null;
-    }
-
-    void addReserveToClient(String client, Reserve r) {
-        for(Client c:lstClient){
-            if(c.compareById(client)){
-                c.addReserveDone(r);
-            }
-        }
-    }
-
-    void addActiveReserveToClient(String client, Reserve r) {
-        for(Client c:lstClient){
-            if(c.compareById(client)){
-                c.setActiveReserve(r);
-            }
-        }
-    }
-
-
-    private void pickUpMakeChange(Moto m, Local lend) {
-        lend.addMoto(m);
-        this.lstDriving.remove(m);
-    }
-    
     /*------------------------------------------------------------*/
     /* ------------------  Control functions ---------------------*/
     /*------------------------------------------------------------*/
@@ -894,29 +902,206 @@ public class Motorentals {
         return found;
     }
 
-    public void addLocal(Local l) {
-        lstLocal.add(l);
-    }
 
-    public void addMotoToLocalFromParser(Moto m) {
-        lstLocal.get(lstLocal.size()-1).addMoto(m);
-    }
 
-    public Moto searchMotoByIdInAllLocals(String moto) {
-        Moto m;
-        for(Local l:lstLocal){
-            m=l.getMotoById(moto);
-            if(m!=null){
-                return m;
+
+    
+    /*------------------------------------------------------------*/
+    /* --------------   Menus and Select Options -----------------*/
+    /*------------------------------------------------------------*/
+    
+    /**
+     * Prints for the user menu.
+     */
+    private void showUserMenu(){
+        Consola.escriu("1. Log in");
+        Consola.escriu("2. Sign up");
+        Consola.escriu("3. Exit application");
+    }
+    
+    /**
+     * Shows the user menu and gets an option.
+     */
+    private void selectOptionMenuUser(){
+        int index = 0;
+        do{
+            showUserMenu();
+            Consola.escriu("Insert the index of the option you want to do: ");
+        
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 3);
+            
+            switch(index){
+                case 1: 
+                    Consola.escriu("Log in");
+                    logIn();
+                    break;
+                case 2:
+                    Consola.escriu("Sign up");
+                    signUp();
+                    break;
+                case 3:
+                    Consola.escriu("Exit application");
+                    break;
+                }
+           
+        }while(index!=3);
+    }
+    
+    /**
+     * Prints for the client menu
+     */
+    private void showClientMenu(){
+        Consola.escriu("1. Admin information");
+        Consola.escriu("2. Discharge account");
+        Consola.escriu("3. Book");
+        Consola.escriu("4. Modify Arrival");
+        Consola.escriu("5. Cancel Reserve");
+        Consola.escriu("6. See code");
+        Consola.escriu("7. See reserve");
+        Consola.escriu("8. Log Out");
+        
+    }
+    
+    /**
+     * Shows the client menu and gets an option.
+     */
+    private void selectOptionMenuClient(){
+        int index = 0;
+        do {
+            showClientMenu();
+            Consola.escriu("Insert the index of the option you want to do.");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 8);
+            
+            switch (index){
+                case 1: 
+                    Consola.escriu("Admin information");
+                    Consola.escriu("***** YNever change, stay awesome! ***** ");
+                    break;
+                case 2: 
+                    Consola.escriu("Discharge account");
+                    Consola.escriu("***** This option is not available, the app is awesome, don't discharge your account! ***** ");
+                    break;
+                case 3: 
+                    Consola.escriu("Book");
+                    book();
+                    break;
+                case 4: 
+                    Consola.escriu("Modify Arrival");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 5: 
+                    Consola.escriu("Cancel Reserve");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 6:
+                    Consola.escriu("See code");
+                    Consola.escriu("***** Your code is corrupted... joking, just under construction! ***** ");
+                    break;
+                case 7:
+                    Consola.escriu("See Reserve");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 8:
+                    Consola.escriu("Log Out");
+                    break;
             }
-        }
-        System.out.println("ESTO NO DEBERIA OCURRIR");
-        return null;
+        } while (index!=8);
     }
-
-    private void makeGiveChanges(Local l, Moto m) {
-        l.removeMoto(m);
-        lstDriving.add(m);
+    
+    /**
+     * Prints for the manager menu.
+     */
+    private void showManagerMenu(){
+        Consola.escriu("1. Pick Up Moto");
+        Consola.escriu("2. Give Moto");
+        Consola.escriu("3. Change Moto Status");
+        Consola.escriu("4. Log out");  
+    }
+    /**
+     * Shows the manager menu and gets an option.
+     */
+    private void selectOptionMenuManager(){
+        int index = 0;
+        
+        do{
+            showManagerMenu();
+            Consola.escriu("Insert the index of the option you want to do");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 4);
+            switch(index){
+                case 1: 
+                    Consola.escriu("Pick up moto");
+                    pickUpMoto();
+                    break;
+                case 2:
+                    Consola.escriu("Give Moto");
+                    giveMoto();
+                    break;
+                case 3:
+                    Consola.escriu("Change Moto Status");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 4:
+                    Consola.escriu("Log out");
+                    break;
+            }
+        }while(index!=4);
+    }
+    /**
+     * Prints for the admin menu
+     */
+    private void showAdminMenu(){
+        Consola.escriu("1. Load data");
+        Consola.escriu("2. See motos");
+        Consola.escriu("3. Admin distribution");
+        Consola.escriu("4. Add moto");
+        Consola.escriu("5. Remove moto");
+        Consola.escriu("6. See report");
+        Consola.escriu("7. Log out");
+    }
+    /**
+     * Shows the admin menu and gets an option.
+     */
+    private void selectOptionMenuAdmin(){
+        int index = 0;
+        do{
+            showAdminMenu();
+            Consola.escriu("Insert the index of the option you want to do");
+            index = Consola.llegeixInt();
+            index = checkNumber(index, 7);
+            switch(index){
+                case 1: 
+                    Consola.escriu("Load data");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 2:
+                    Consola.escriu("See motos");
+                    seeMotos();
+                    break;
+                case 3:
+                    Consola.escriu("Admin distribution");
+                    adminMoto();
+                    break;
+                case 4: 
+                    Consola.escriu("Add moto");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 5:
+                    Consola.escriu("Remove moto");
+                    Consola.escriu("***** Under construction, sorry for the inconvenience ***** ");
+                    break;
+                case 6:
+                    Consola.escriu("See report");
+                    seeReport();
+                    break;
+                case 7:
+                    Consola.escriu("Log out");
+                    break;
+            }
+        }while(index!=7);
+                
     }
 }
   
