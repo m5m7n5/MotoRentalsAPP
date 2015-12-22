@@ -80,4 +80,8 @@ public class Local {
     public void addMoto(Moto m) {
         this.lstMotos.add(m);
     }
+
+    public void removeMoto(Moto m) {
+        this.lstMotos.remove(m);
+    }
 }

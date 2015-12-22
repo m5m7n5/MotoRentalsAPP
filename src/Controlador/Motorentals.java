@@ -405,6 +405,32 @@ public class Motorentals {
         }
     }
     
+    public void giveMoto(Client current){
+        String code;
+        boolean condition = false;
+        Local localS;
+        Moto moto;
+        
+        Consola.escriu("Insert the reserve code");
+        code = Consola.llegeixString();
+        
+        code = this.checkCode(code);
+        
+        if (!code.equals("")){
+            for (int i = 0; i <= lstClient.size() && !condition; i++){
+                condition = lstClient.get(i).compareCode(code);
+                
+                if (condition){
+                    lstClient.get(i).printActiveReserve();
+                    localS = lstClient.get(i).getLocalSFromActiveReserve();
+                    
+                    moto = lstClient.get(i).getMotoFromActiveReserve();
+                    
+                    this.makeGiveChanges(localS,moto);
+                }
+            }
+        }
+    }
     /*------------------------------------------------------------*/
     /* --------------   Menus and Select Options -----------------*/
     /*------------------------------------------------------------*/
@@ -886,6 +912,11 @@ public class Motorentals {
         }
         System.out.println("ESTO NO DEBERIA OCURRIR");
         return null;
+    }
+
+    private void makeGiveChanges(Local l, Moto m) {
+        l.removeMoto(m);
+        lstDriving.add(m);
     }
 }
   

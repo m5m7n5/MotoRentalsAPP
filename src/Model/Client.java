@@ -118,6 +118,12 @@ public class Client extends Person{
         return m;
     }
 
+    public Local getLocalSFromActiveReserve() {
+        Local l = this.active.getLocalS();
+        return l;
+        
+    }
+    
     public Local getLocalEFromActiveReserve() {
         Local lend = null;
         lend = this.active.getLocalE();
@@ -207,7 +213,5 @@ public class Client extends Person{
     public void printDNI(){
         Consola.escriu("DNI: "+this.DNI);
     }
-
-
 
 }

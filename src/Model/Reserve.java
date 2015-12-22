@@ -58,6 +58,10 @@ public class Reserve {
         return this.moto;
     }
 
+    public Local getLocalS() {
+        return this.start;
+    }
+    
     public Local getLocalE() {
         return this.arrival;
     }
