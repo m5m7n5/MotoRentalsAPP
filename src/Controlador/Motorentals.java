@@ -319,7 +319,7 @@ public class Motorentals {
         email = Consola.llegeixString();
         
         while (check == false){
-            Consola.escriu("Write the entity of your bank account: ");
+            Consola.escriu("Write the entity of your bank account (First 4 digits): ");
             entity = Consola.llegeixInt();
             if (entity >= 0 && entity <= 9999){
                 check = true;
@@ -330,7 +330,7 @@ public class Motorentals {
         }
         check = false;
         while (check == false){
-            Consola.escriu("Write the office of your bank account: ");
+            Consola.escriu("Write the office of your bank account (Next 4 digits): ");
             office = Consola.llegeixInt();
             if (office >= 0 && office <= 9999){
                 check = true;
@@ -341,7 +341,7 @@ public class Motorentals {
         }
         check = false;
         while (check == false){
-            Consola.escriu("Write the DC of your bank account: ");
+            Consola.escriu("Write the DC of your bank account (Next 2 digits): ");
             control = Consola.llegeixInt();
             if (control >= 0 && control <= 99){
                 check = true;
@@ -352,7 +352,7 @@ public class Motorentals {
         }
         check = false;
         while (check == false){
-            Consola.escriu("Write the account number of your bank account: ");
+            Consola.escriu("Write the account number of your bank account (Last 10 digits): ");
             accNumber = Consola.llegeixInt();
             if (accNumber >= 0 && accNumber <= 999999999*10+9){
                 check = true;
