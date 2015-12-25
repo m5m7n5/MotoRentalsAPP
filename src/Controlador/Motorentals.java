@@ -719,10 +719,7 @@ public class Motorentals {
             int cantDias = Consola.llegeixInt();
             Consola.escriu("Insert number of hours you would like to reserve:");
             int cantHoras = Consola.llegeixInt();
-            /**
-             Falta implementar :P
-            bookShowInfo();
-            */
+            this.bookPrintInfo(localS,localE,motoreta,date,cantDias,cantHoras);
             Consola.escriu("Insert an S to confirm or an N to cancel the reserve");
             String ans = Consola.llegeixString();
             correct = checkYesNo(ans);
@@ -737,7 +734,7 @@ public class Motorentals {
         ArrayList<Local> auxLstLocals = getStartAvailableLocals();
         
         printLocalList(auxLstLocals);
-        Consola.escriu("Insert the index of your prefered local.");
+        Consola.escriu("Insert the index of your prefered local (exit) .");
         int indice = Consola.llegeixInt();
         int lenght = auxLstLocals.size();
         indice = checkNumber(indice,lenght);
@@ -770,7 +767,7 @@ public class Motorentals {
         ArrayList<Local> auxLstLocals = getEndAvailableLocals();
         
         printLocalList(auxLstLocals);
-        Consola.escriu("Insert the index of your prefered local.");
+        Consola.escriu("Insert the index of your prefered local (arrival).");
         int indice = Consola.llegeixInt();
         int lenght = auxLstLocals.size();
         indice = checkNumber(indice,lenght);
@@ -1148,6 +1145,20 @@ public class Motorentals {
             }
         }while(index!=7);
                 
+    }
+
+    private void bookPrintInfo(Local localS, Local localE, Moto motoreta, Calendar date, int cantDias, int cantHoras) {
+       String strDays;
+       String strHours;
+       
+       localS.printInfoLocal();
+       localE.printInfoLocal();
+       motoreta.printInfoMoto();
+       
+       Consola.escriu("Time to reserve");
+       strDays = Integer.toString(cantDias);
+       strHours = Integer.toString(cantHoras);
+       Consola.escriu("Days:"+ strDays + "Hours:" + strHours);
     }
 }
   
