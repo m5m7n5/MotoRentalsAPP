@@ -250,7 +250,7 @@ public class Motorentals {
     /**
      * An user can give his/her information and sign up to our application.
      */
-    private void signUp(){
+    private void signUp (){
         String name,surname,street,DNI, pobl, email, iban;
         String DNINumber;
         String user,pass1,pass2;
@@ -273,9 +273,13 @@ public class Motorentals {
         while (check == false) {
             Consola.escriu("DNI: ");
             DNI = Consola.llegeixString();
-            
-            DNINumber = DNI.substring(0, DNI.length()-1);
-            dniNumber = Integer.parseInt(DNINumber);
+            try {
+                dniNumber = Integer.parseInt(DNI);
+                
+            } catch (NumberFormatException e){
+                DNINumber = DNI.substring(0, DNI.length()-1);
+                dniNumber = Integer.parseInt(DNINumber);
+            }
             
             if (dniNumber - 100000001  < 0 && dniNumber >= 0 ){
                 check = true;
