@@ -258,8 +258,6 @@ public class Motorentals {
         user = null;
         pass1 = null;
         
-
-        
         int dniNumber, tlphNumber, numStreet, numDoor, CP;
         int entity, office, control, accNumber;
         
@@ -646,6 +644,11 @@ public class Motorentals {
     private void book(){
         boolean r = ((Client)current).hasActiveReserve();
         boolean correct = false;
+        boolean check = false;
+        int hours = 0;
+        int days = 0;
+        int month = 0;
+        int year = 0;
         Calendar date = null;
         if(!r){
             while(!correct){
@@ -653,18 +656,57 @@ public class Motorentals {
                 String fecha = Consola.llegeixString();
                 String[] parser = fecha.split("/");
                 date = Consola.llegeixDataSistema();
-                int year = Integer.parseInt(parser[3]);
-                int month = Integer.parseInt(parser[2]);
-                int days = Integer.parseInt(parser[1]);
-                int hours = Integer.parseInt(parser[0]);
+                
+                hours = Integer.parseInt(parser[0]);
+                days = Integer.parseInt(parser[1]);
+                month = Integer.parseInt(parser[2]);
+                year = Integer.parseInt(parser[3]);
+                
+                while (!check){
+                    check = true;
+                    if (hours > 24 || hours <= 0){
+                        check = false;
+                        Consola.escriu("The inserted hour is incorrect. Please insert it again");
+                        hours = Consola.llegeixInt();
+                    }
+                }
+                check = false;
+                while(!check){
+                    check = true;
+                    if (days > 31 || days <= 0){
+                        check = false;
+                        Consola.escriu("The inserted day is incorrect. Please insert it again");                    
+                        days = Consola.llegeixInt();
+                    }
+                }
+                check = false;
+                while(!check){
+                    check = true;
+                    if (month > 12 || month <= 0){
+                        check = false;
+                        Consola.escriu("The inserted month is incorrect. Please insert it again");
+                        month = Consola.llegeixInt();
+                    }
+                }
+                check = false;
+                while(!check){
+                    check = true;
+                    if (year >= 2016 || year <= 0){
+                        check = false;
+                        Consola.escriu("The inserted year is incorrect. Please insert it again");
+                        year = Consola.llegeixInt();
+                    }
+                }    
+                
                 date.set(year, month, days, hours, 0);
                 Calendar currentDate = Consola.llegeixDataSistema();
                 correct = currentDate.before(date);
+                
                 if(!correct){
                     Consola.escriu("Invalid date, insert again");
                 }   
             }
-            
+    
             Local localS = bookGetLocalS();
             Local localE = bookGetLocalE();
             Moto motoreta = bookGetMoto(localS);
