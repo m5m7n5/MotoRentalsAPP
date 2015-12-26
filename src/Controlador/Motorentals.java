@@ -660,12 +660,12 @@ public class Motorentals {
                 String fecha = Consola.llegeixString();
                 String[] parser = fecha.split("/");
                 date = Consola.llegeixDataSistema();
-                
-                hours = Integer.parseInt(parser[0]);
-                days = Integer.parseInt(parser[1]);
-                month = Integer.parseInt(parser[2]);
-                year = Integer.parseInt(parser[3]);
-                
+                try{
+                    hours = Integer.parseInt(parser[0]);
+                    days = Integer.parseInt(parser[1]);
+                    month = Integer.parseInt(parser[2]);
+                    year = Integer.parseInt(parser[3]);
+
                 while (!check){
                     check = true;
                     if (hours > 24 || hours <= 0){
@@ -695,7 +695,7 @@ public class Motorentals {
                 check = false;
                 while(!check){
                     check = true;
-                    if (year >= 2016 || year <= 0){
+                    if (year >= 2017 || year <= 0){
                         check = false;
                         Consola.escriu("The inserted year is incorrect. Please insert it again");
                         year = Consola.llegeixInt();
@@ -705,10 +705,13 @@ public class Motorentals {
                 date.set(year, month, days, hours, 0);
                 Calendar currentDate = Consola.llegeixDataSistema();
                 correct = currentDate.before(date);
-                
+
                 if(!correct){
                     Consola.escriu("Invalid date, insert again");
                 }   
+                }catch(Exception ex){
+                    Consola.escriu("There's a invalid character in the date or an enmpy value, please, write again the date:");
+                }
             }
     
             Local localS = bookGetLocalS();
