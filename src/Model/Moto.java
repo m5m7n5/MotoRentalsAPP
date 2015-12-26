@@ -52,7 +52,7 @@ public class Moto {
         this.status = new AvailableStatus(null);
     }
 
-    boolean isAvailable() {
+    public boolean isAvailable() {
         if(status instanceof AvailableStatus){
             return true;
         }

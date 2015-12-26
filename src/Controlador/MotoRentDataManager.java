@@ -94,7 +94,7 @@ public class MotoRentDataManager {
 		Consola.escriu("Estat: " + estat);
                 */
                 Boolean estado = true;
-                if(estat == "avariada"){
+                if(estat.equals("avariada")){
                     estado = false;
                 }
                 Moto m = new Moto(id,matricula,color,marca,model,estado,estat);
