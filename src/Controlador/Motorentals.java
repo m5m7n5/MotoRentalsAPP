@@ -274,7 +274,7 @@ public class Motorentals {
         while (check == false) {
             while (!comprobacion){
                 comprobacion = true;
-                Consola.escriu("DNI: ");
+                Consola.escriu("DNI(with letter): ");
                 DNI = Consola.llegeixString();
                 if (DNI.length()==9){
                     DNINumber = DNI.substring(0, DNI.length()-1);
