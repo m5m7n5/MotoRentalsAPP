@@ -88,4 +88,18 @@ public class Local {
     public int getQuantityMotos() {
         return lstMotos.size();
     }
+
+    public ArrayList<Moto> getAvailableMotos() {
+        ArrayList<Moto> lst = new ArrayList<Moto>();
+        for(Moto m:lstMotos){
+            if(m.isAvailable()){
+                lst.add(m);
+            }
+        }
+        return lst;
+    }
+
+    public String getId() {
+        return idLocal;
+    }
 }

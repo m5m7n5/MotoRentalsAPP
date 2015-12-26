@@ -156,7 +156,8 @@ public class MotoRentDataManager {
                 if(dataE.after(Calendar.getInstance())){
                     motorent.addActiveReserveToClient(client,r); 
                 }else{
-                    motorent.addReserveToClient(client,r);
+                    int f = Integer.parseInt(falta);
+                    motorent.addReserveToClient(client,r,f);
                 }
         }
 

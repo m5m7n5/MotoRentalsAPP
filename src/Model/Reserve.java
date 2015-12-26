@@ -51,7 +51,7 @@ public class Reserve {
     }
 
     public boolean compareCode(String code) {
-        return (code == this.code);
+        return (code.equals(this.code));
     }
 
     public Moto getMoto() {
@@ -129,5 +129,9 @@ public class Reserve {
         //If this reserve hasn't happened in the given month/year
         //we will return a 0, so it's ok.
         return total;
+    }
+
+    void setCode(String code) {
+        this.code = code;
     }
 }

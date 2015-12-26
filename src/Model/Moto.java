@@ -51,4 +51,15 @@ public class Moto {
     public void changeStatusAvailable() {
         this.status = new AvailableStatus(null);
     }
+
+    boolean isAvailable() {
+        if(status instanceof AvailableStatus){
+            return true;
+        }
+        return false;
+    }
+
+    public String getId() {
+        return idMoto;
+    }
 }

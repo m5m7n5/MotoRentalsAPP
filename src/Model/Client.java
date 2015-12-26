@@ -214,4 +214,15 @@ public class Client extends Person{
         Consola.escriu("DNI: "+this.DNI);
     }
 
+    public void updateAdmonish(int falta) {
+        numberAdmonish += falta;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setCodeToActiveReserve(String code) {
+        active.setCode(code);
+    }
 }

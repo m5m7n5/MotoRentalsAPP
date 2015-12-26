@@ -111,10 +111,11 @@ public class Motorentals {
         return null;
     }
 
-    public void addReserveToClient(String client, Reserve r) {
+    public void addReserveToClient(String client, Reserve r,int falta) {
         for(Client c:lstClient){
             if(c.compareById(client)){
                 c.addReserveDone(r);
+                c.updateAdmonish(falta);
             }
         }
     }
@@ -663,14 +664,14 @@ public class Motorentals {
                 try{
                     hours = Integer.parseInt(parser[0]);
                     days = Integer.parseInt(parser[1]);
-                    month = Integer.parseInt(parser[2]);
+                    month = Integer.parseInt(parser[2])-1;
                     year = Integer.parseInt(parser[3]);
 
                 while (!check){
                     check = true;
-                    if (hours > 24 || hours <= 0){
+                    if (hours > 20 || hours <= 8){
                         check = false;
-                        Consola.escriu("The inserted hour is incorrect. Please insert it again");
+                        Consola.escriu("The inserted hour is incorrect (8-20 hours only accepted). Please insert it again");
                         hours = Consola.llegeixInt();
                     }
                 }
@@ -728,6 +729,11 @@ public class Motorentals {
             correct = checkYesNo(ans);
             if(correct){
                 ((Client)current).addActiveReserve(localS, localE, date, cantHoras, cantDias, motoreta);
+                String code = new String();
+                code = ((Client)current).getId()+localS.getId()+localE.getId()+motoreta.getId()+Integer.toString(cantHoras)+Integer.toString(cantDias);
+                code = code + date.get(Calendar.HOUR_OF_DAY) + date.get(Calendar.DAY_OF_MONTH) + Integer.toString(date.get(Calendar.MONTH)+1) + date.get(Calendar.YEAR);
+                ((Client)current).setCodeToActiveReserve(code);
+                Consola.escriu("Code: "+code);
                 Consola.escriu("The reserve has been done and saved");
             }
         }
@@ -758,7 +764,10 @@ public class Motorentals {
     
     private void printLocalList(ArrayList<Local> auxLstLocals) {
         for(int i=0;i<auxLstLocals.size();i++){
+            Consola.escriu("Local " + Integer.toString(i+1));
+            Consola.escriu("-----------------------");
             auxLstLocals.get(i).printInfoLocal();
+            Consola.escriu("-----------------------");
         }
     }
 
@@ -790,11 +799,13 @@ public class Motorentals {
     }
 
     private Moto bookGetMoto(Local localS) {
-        localS.printMotoList();
+        ArrayList<Moto> aux = new ArrayList<Moto>();
+        aux = localS.getAvailableMotos();
+        printMotoList(aux);
         Consola.escriu("Insert the index of your prefered moto.");
         int indice = Consola.llegeixInt();
-        Moto motoreta = localS.getMotoByIndex(indice);
-        return motoreta;
+        indice = checkNumber(indice, aux.size());
+        return aux.get(indice-1);
     }
 
     /**
@@ -1162,6 +1173,17 @@ public class Motorentals {
        strDays = Integer.toString(cantDias);
        strHours = Integer.toString(cantHoras);
        Consola.escriu("Days:"+ strDays + "Hours:" + strHours);
+    }
+
+    private void printMotoList(ArrayList<Moto> aux) {
+        int i = 0;
+        for(Moto m:aux){
+            Consola.escriu("Moto "+ Integer.toString(i+1));
+            Consola.escriu("****************");
+            m.printInfoMoto();
+            Consola.escriu("****************");
+            i++;
+        }
     }
 }
   
