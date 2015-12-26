@@ -276,10 +276,11 @@ public class Motorentals {
                 comprobacion = true;
                 Consola.escriu("DNI: ");
                 DNI = Consola.llegeixString();
-                if (DNI.length()== 8 || DNI.length()==9 ){
+                if (DNI.length()==9 ){
                     try {
                         dniNumber = Integer.parseInt(DNI);
-
+                        Consola.escriu("Invalid DNI.Please type it again");
+                        comprobacion = false;
                     } catch (NumberFormatException e){
                         DNINumber = DNI.substring(0, DNI.length()-1);
                         dniNumber = Integer.parseInt(DNINumber);
@@ -289,7 +290,7 @@ public class Motorentals {
                     comprobacion = false;
                 }
             }
-            
+           
             if (dniNumber - 100000001  < 0 && dniNumber >= 0 ){
                 check = true;
             } else {
