@@ -276,15 +276,9 @@ public class Motorentals {
                 comprobacion = true;
                 Consola.escriu("DNI: ");
                 DNI = Consola.llegeixString();
-                if (DNI.length()==9 ){
-                    try {
-                        dniNumber = Integer.parseInt(DNI);
-                        Consola.escriu("Invalid DNI.Please type it again");
-                        comprobacion = false;
-                    } catch (NumberFormatException e){
-                        DNINumber = DNI.substring(0, DNI.length()-1);
-                        dniNumber = Integer.parseInt(DNINumber);
-                    }
+                if (DNI.length()==9){
+                    DNINumber = DNI.substring(0, DNI.length()-1);
+                    dniNumber = Integer.parseInt(DNINumber);
                 } else {
                     Consola.escriu("Invalid DNI. Please type it again");
                     comprobacion = false;
