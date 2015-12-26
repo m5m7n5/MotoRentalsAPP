@@ -322,7 +322,17 @@ public class Motorentals {
         email = Consola.llegeixString();
         
         while (check == false){
-            Consola.escriu("Write the entity of your bank account (First 4 digits): ");
+            Consola.escriu("Write the iban of your bank account (First 4 digits)");
+            iban = Consola.llegeixString();
+            if (iban.length() != 4){
+                Consola.escriu("Invalid iban");
+            } else {
+                check = true;
+            }
+        }
+        check = false;
+        while (check == false){
+            Consola.escriu("Write the entity of your bank account (Next 4 digits): ");
             entity = Consola.llegeixInt();
             if (entity >= 0 && entity <= 9999){
                 check = true;
