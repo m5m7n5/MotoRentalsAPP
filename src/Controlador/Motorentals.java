@@ -259,11 +259,11 @@ public class Motorentals {
         user = null;
         pass1 = null;
         
-        int dniNumber, tlphNumber, numStreet, numDoor, CP;
+        int dniNumber = 0, tlphNumber, numStreet, numDoor, CP;
         int entity, office, control, accNumber;
         
         
-        boolean check = false,exists = false;
+        boolean check = false,exists = false,comprobacion = false;
         
         Consola.escriu("Real name: ");
         name = Consola.llegeixString();
@@ -272,14 +272,22 @@ public class Motorentals {
         surname = Consola.llegeixString();
         
         while (check == false) {
-            Consola.escriu("DNI: ");
-            DNI = Consola.llegeixString();
-            try {
-                dniNumber = Integer.parseInt(DNI);
-                
-            } catch (NumberFormatException e){
-                DNINumber = DNI.substring(0, DNI.length()-1);
-                dniNumber = Integer.parseInt(DNINumber);
+            while (!comprobacion){
+                comprobacion = true;
+                Consola.escriu("DNI: ");
+                DNI = Consola.llegeixString();
+                if (DNI.length()== 8 || DNI.length()==9 ){
+                    try {
+                        dniNumber = Integer.parseInt(DNI);
+
+                    } catch (NumberFormatException e){
+                        DNINumber = DNI.substring(0, DNI.length()-1);
+                        dniNumber = Integer.parseInt(DNINumber);
+                    }
+                } else {
+                    Consola.escriu("Invalid DNI. Please type it again");
+                    comprobacion = false;
+                }
             }
             
             if (dniNumber - 100000001  < 0 && dniNumber >= 0 ){
