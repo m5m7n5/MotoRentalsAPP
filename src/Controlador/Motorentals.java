@@ -313,16 +313,16 @@ public class Motorentals {
         
         boolean check = false,exists = false,comprobacion = false;
         
-        Consola.escriu("Real name: ");
+        Consola.escriu("**Real name: ");
         name = Consola.llegeixString();
         
-        Consola.escriu("Surname: ");
+        Consola.escriu("**Surname: ");
         surname = Consola.llegeixString();
         
         while (!check) {
             while (!comprobacion){
                 comprobacion = true;
-                Consola.escriu("DNI(with letter): ");
+                Consola.escriu("**DNI(with letter): ");
                 DNI = Consola.llegeixString();
                 if (DNI.length()==9){
                     DNINumber = DNI.substring(0, DNI.length()-1);
@@ -343,37 +343,37 @@ public class Motorentals {
         
         check = false;
         while (!check){
-            Consola.escriu("Telephon number: ");
+            Consola.escriu("**Telephon number: ");
             tlphNumber = Consola.llegeixInt();
             
             if (tlphNumber - 1000000001 < 0 && tlphNumber <= 999999999){
                 check = true;
             } else {
-                Consola.escriu("Invalid telephon");
+                Consola.escriu("**Invalid telephon");
             }
             
         }
         check = false;
-        Consola.escriu("Street: ");
+        Consola.escriu("**Street: ");
         street = Consola.llegeixString();
         
-        Consola.escriu("Number: ");
+        Consola.escriu("**Number: ");
         numStreet = Consola.llegeixInt();
         
-        Consola.escriu("Door: ");
+        Consola.escriu("**Door: ");
         numDoor = Consola.llegeixInt();
         
-        Consola.escriu("Postal code: ");
+        Consola.escriu("**Postal code: ");
         CP = Consola.llegeixInt();
         
-        Consola.escriu("Poblation: ");
+        Consola.escriu("**Poblation: ");
         pobl = Consola.llegeixString();
         
-        Consola.escriu("E-mail: ");
+        Consola.escriu("**E-mail: ");
         email = Consola.llegeixString();
         
         while (!check){
-            Consola.escriu("Write the iban of your bank account (First 4 digits)");
+            Consola.escriu("**Write the iban of your bank account (First 4 digits)");
             iban = Consola.llegeixString();
             if (iban.length() != 4){
                 Consola.escriu("Invalid iban");
@@ -383,7 +383,7 @@ public class Motorentals {
         }
         check = false;
         while (!check){
-            Consola.escriu("Write the entity of your bank account (Next 4 digits): ");
+            Consola.escriu("**Write the entity of your bank account (Next 4 digits): ");
             entity = Consola.llegeixInt();
             if (entity >= 0 && entity <= 9999){
                 check = true;
@@ -394,7 +394,7 @@ public class Motorentals {
         }
         check = false;
         while (!check){
-            Consola.escriu("Write the office of your bank account (Next 4 digits): ");
+            Consola.escriu("**Write the office of your bank account (Next 4 digits): ");
             office = Consola.llegeixInt();
             if (office >= 0 && office <= 9999){
                 check = true;
@@ -405,7 +405,7 @@ public class Motorentals {
         }
         check = false;
         while (!check){
-            Consola.escriu("Write the DC of your bank account (Next 2 digits): ");
+            Consola.escriu("**Write the DC of your bank account (Next 2 digits): ");
             control = Consola.llegeixInt();
             if (control >= 0 && control <= 99){
                 check = true;
@@ -416,7 +416,7 @@ public class Motorentals {
         }
         check = false;
         while (!check){
-            Consola.escriu("Write the account number of your bank account (Last 10 digits): ");
+            Consola.escriu("**Write the account number of your bank account (Last 10 digits): ");
             accNumber = Consola.llegeixInt();
             if (accNumber >= 0 && accNumber <= 999999999*10+9){
                 check = true;
@@ -435,7 +435,7 @@ public class Motorentals {
         
         if (!check){
             while (!check){
-                Consola.escriu("Username: ");
+                Consola.escriu("**Username: ");
                 user = Consola.llegeixString();
                 exists = false;
                 for(int i = 0; i< this.lstClient.size() && check == false; i++){
@@ -449,10 +449,10 @@ public class Motorentals {
             
             check = false;
             while (!check) {
-                Consola.escriu("Password: ");
+                Consola.escriu("**Password: ");
                 pass1 = Consola.llegeixString();
 
-                Consola.escriu("Write your password again: ");
+                Consola.escriu("**Write your password again: ");
                 pass2 = Consola.llegeixString();
 
                 if (pass1.equals(pass2)){
