@@ -11,10 +11,7 @@ import Vista.Consola;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- *
- * @author Marcos
- */
+
 public class Motorentals {
     private static Motorentals instance = null;
     private ArrayList<Admin> lstAdmin;

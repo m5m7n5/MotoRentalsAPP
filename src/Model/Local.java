@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import Controlador.Motorentals;
 import Vista.Consola;
 import java.util.ArrayList;
 
-/**
- *
- * @author Marcos
- */
 public class Local {
     private String idLocal;
     private int maxMoto;
@@ -30,12 +21,21 @@ public class Local {
         }
     }
 
+    /**
+     * Gets a moto from lstMotos giving a index 
+     * @param index
+     * @return the moto selected
+     */
     public Moto getMotoByIndex(int index) {
         int lenght = lstMotos.size();
         index = Motorentals.getInstance().checkNumber(index, lenght);
         return lstMotos.get(index-1);
     }           
 
+    /**
+     * Checks if lstMotos 
+     * @return 
+     */
     public boolean IsEmpty() {
         return lstMotos.size()<5;
     }
