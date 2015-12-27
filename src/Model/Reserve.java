@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import Vista.Consola;
 import java.util.Calendar;
 
-/**
- *
- * @author Marcos
- */
 public class Reserve {
     private String code;
     private Local arrival;
@@ -49,27 +40,52 @@ public class Reserve {
         this.moto = moto;
         price = new Price(2*cantHoras+48*cantDias);
     }
-
+    
+    /**
+     * Method to check if the code given is correct.
+     * @param code
+     * @return true if both codes are equal, false otherwise.
+     */
     public boolean compareCode(String code) {
         return (code.equals(this.code));
     }
 
+    /**
+     * Gets the moto from the reserve.
+     * @return the moto from the reserve.
+     */
     public Moto getMoto() {
         return this.moto;
     }
 
+    /**
+     * Gets the start local from the reserve.
+     * @return the start local from the reserve.
+     */
     public Local getLocalS() {
         return this.start;
     }
     
+    /**
+     * Gets the arrival local from the reserve.
+     * @return the arrival local from the reserve.
+     */
     public Local getLocalE() {
         return this.arrival;
     }
 
+    /**
+     * Add an admonish to a reserve.
+     * @param explicacion String 
+     * @param priceAdmonish Int
+     */
     public void addAdmonish(String explicacion, int priceAdmonish) {
         this.admonish = new Admonish(explicacion, priceAdmonish);
     }
 
+    /**
+     * Show all the information about the reserve.
+     */
     public void printInfoReserve() {
         Consola.escriu("Start local: ");
         this.start.printInfoLocal();
@@ -85,14 +101,25 @@ public class Reserve {
         
     }
 
+    /**
+     * Add a delay to a reserve.
+     * @param numhorastard Int
+     * @param numdiastard Int
+     */
     public void addDelayToReserve(int numhorastard, int numdiastard) {
         this.delay = new Delay(numhorastard, numdiastard);
     }
 
+    /**
+     * Remove an admonish from a reserve.
+     */
     public void removeAdmonish() {
         this.admonish = null;
     }
 
+    /**
+     * Remove a delay from the reserve.
+     */
     public void removeDelay() {
         this.delay = null;
     }

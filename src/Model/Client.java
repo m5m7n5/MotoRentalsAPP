@@ -92,10 +92,20 @@ public class Client extends Person{
         lstDone.add(r);
     }
 
+    /**
+     * Method that comproves if the id given is correct
+     * @param client
+     * @return true if both id's are equal, false otherwise.
+     */
     public boolean compareById(String client) {
         return client.equals(id);
     }
     
+    /**
+     * Method that comproves if the code given is correct
+     * @param code
+     * @return true if both codes are equal, false otherwise.
+     */
     public boolean compareCode(String code) {
         boolean check = false;
         if (this.active != null){
@@ -104,28 +114,47 @@ public class Client extends Person{
         return check;
     }
 
+    /**
+     * Method that gets a moto from the active reserve.
+     * @return a moto from the active reserve.
+     */
     public Moto getMotoFromActiveReserve() {
         Moto m = null;
         m = this.active.getMoto();
         return m;
     }
 
+    /**
+     * Method that gets a start local from the active reserve.
+     * @return a local from the active reserve.
+     */
     public Local getLocalSFromActiveReserve() {
         Local l = this.active.getLocalS();
         return l;
         
     }
     
+    /**
+     * Method that gets an arrival local from the active reserve.
+     * @return a local from the active reserve.
+     */
     public Local getLocalEFromActiveReserve() {
         Local lend = null;
         lend = this.active.getLocalE();
         return lend;
     }
 
+    /**
+     * Method that gets the active reserve from the client.
+     * @return a reserve from the client.
+     */
     public Reserve getActiveReserve(){
         return this.active;
     }
     
+    /**
+     * Method to admonish a client.
+     */
     public void admonish() {
         String explicacion;
         int priceAdmonish;
@@ -142,6 +171,9 @@ public class Client extends Person{
         
     }
 
+    /**
+     * Method to give a delay to a client.
+     */
     public void delay() {
         int numhorastard = 0;
         int numdiastard = 0;
@@ -174,15 +206,24 @@ public class Client extends Person{
         this.active.addDelayToReserve(numhorastard, numdiastard);
     }
 
+    /**
+     * Method to remove an admonish from an active reserve.
+     */
     public void removeAdmonishFromActiveReserve() {
        this.active.removeAdmonish();
        this.numberAdmonish = this.numberAdmonish - 1;
     }
 
+    /**
+     * Method to remove a delay from an active reserve.
+     */
     public void removeDelayFromActiveReserve() {
         this.active.removeDelay();
     }
     
+    /**
+     * Method to remove an active reserve.
+     */
     public void removeActiveReserve() {
         this.active = null;
     }
@@ -205,22 +246,40 @@ public class Client extends Person{
         
     }
     
+    /**
+     * Method to show al the information about the active reserve.
+     */
     public void printActiveReserve() {
         this.active.printInfoReserve();
     }
     
+    /**
+     * Mehtod to show the DNI.
+     */
     public void printDNI(){
         Consola.escriu("DNI: "+this.DNI);
     }
 
+    /**
+     * Method to update an admonish of a client.
+     * @param falta 
+     */
     public void updateAdmonish(int falta) {
         numberAdmonish += falta;
     }
 
+    /**
+     * Method to get the id of a client.
+     * @return 
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Method to set the code from an active reserve.
+     * @param code 
+     */
     public void setCodeToActiveReserve(String code) {
         active.setCode(code);
     }

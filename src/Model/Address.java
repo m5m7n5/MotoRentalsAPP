@@ -14,7 +14,10 @@ public class Address {
         this.street=street;
     }
 
-    void printStreet() {
+    /**
+     * Show the street of an address.
+     */
+    public void printStreet() {
         Consola.escriu("Street"+street);
     }
 }
