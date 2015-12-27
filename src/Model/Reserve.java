@@ -91,7 +91,12 @@ public class Reserve {
     public void removeDelay() {
         this.delay = null;
     }
-    
+    /**
+     * Prints the reserve and calculates the bill, given a month and a year. 
+     * @param m
+     * @param a
+     * @return 
+     */
     public int printReserveByMontYear(int m, int a){
         boolean check;
         int priceD, priceA, total;

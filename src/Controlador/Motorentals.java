@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
 import Model.Admin;
@@ -70,18 +65,46 @@ public class Motorentals {
     /* ------------ Needed functions to load data -----------------*/
     /*-------------------------------------------------------------*/
     
+    /**
+     * Adds a client from the DataManager to our client list.
+     * @param c client to be added
+     */
     public void addClient(Client c) {
        lstClient.add(c);
     }
     
-        public void addLocal(Local l) {
+    /**
+     * Adds a local from the DataManager to our local list.
+     * @param l local to be added.
+     */
+    public void addLocal(Local l) {
         lstLocal.add(l);
     }
-
+    
+    /**
+     * Adds a moto to a local from the DataManager.
+     * @param m moto to be added.
+     */
     public void addMotoToLocalFromParser(Moto m) {
+        //We checked how the DataManager and the Parser work.
+        //First of all, we load the local.
+        //And then, we load the motos of this concrete local.
+        //So the process is load local -> full this local with its motos.
+        //Parsing an adding that is simple, because the arrayList of locals increases its size
+        //progressively. We can just add the motos to the local in the position size-1.
+        //This is even true for the first local because first we put the local and then the motos.
         lstLocal.get(lstLocal.size()-1).addMoto(m);
     }
-
+    
+    /**
+     * Searches a moto by its id in all locals.
+     * This method has reserve purposes. We can't assure where the moto will be
+     * (because maybe there are a lot of reserves using this moto). So we don't
+     * know if a moto is in the starter local, the ending local, or whatever local.
+     * We have to search the moto in all locals to be sure we find it.
+     * @param moto
+     * @return Moto
+     */
     public Moto searchMotoByIdInAllLocals(String moto) {
         Moto m;
         for(Local l:lstLocal){
@@ -94,23 +117,44 @@ public class Motorentals {
         return null;
     }
     
+    /**
+     * Adds a manager from the DataManager to our list.
+     * @param m Manager to be added.
+     */
     public void addManager(Manager m) {
         lstManager.add(m);
     }
 
+    /**
+     * Adds an Admin from the DataManater to our list.
+     * @param a Admin to be added.
+     */
     public void addAdmin(Admin a) {
         lstAdmin.add(a);
     }
 
+    /**
+     * Obtains a local searching by id.
+     * @param id
+     * @return Local
+     */
     public Local getLocalById(String id) {
         for(Local l:lstLocal){
             if(l.compareLocalById(id)){
                 return l;
             }
         }
+        //This shouldn't happen because it is used in the DataManager.
+        //We already know that the id is correct and that we will find a local.
         return null;
     }
 
+    /**
+     * Adds a done reserve to the list of the client. 
+     * @param client id that we use to find the client.
+     * @param r reserve that we will add
+     * @param falta The reserve can have admonishes
+     */
     public void addReserveToClient(String client, Reserve r,int falta) {
         for(Client c:lstClient){
             if(c.compareById(client)){
@@ -120,6 +164,13 @@ public class Motorentals {
         }
     }
 
+    /**
+     * Adds an active reserve to client.
+     * Maybe is not used now (because all the reserves given in the XML are done)
+     * but we contemplate the possibility of parsing active reserves.
+     * @param client
+     * @param r 
+     */
     public void addActiveReserveToClient(String client, Reserve r) {
         for(Client c:lstClient){
             if(c.compareById(client)){
@@ -271,7 +322,7 @@ public class Motorentals {
         Consola.escriu("Surname: ");
         surname = Consola.llegeixString();
         
-        while (check == false) {
+        while (!check) {
             while (!comprobacion){
                 comprobacion = true;
                 Consola.escriu("DNI(with letter): ");
@@ -294,7 +345,7 @@ public class Motorentals {
         }
         
         check = false;
-        while (check == false){
+        while (!check){
             Consola.escriu("Telephon number: ");
             tlphNumber = Consola.llegeixInt();
             
@@ -324,7 +375,7 @@ public class Motorentals {
         Consola.escriu("E-mail: ");
         email = Consola.llegeixString();
         
-        while (check == false){
+        while (!check){
             Consola.escriu("Write the iban of your bank account (First 4 digits)");
             iban = Consola.llegeixString();
             if (iban.length() != 4){
@@ -334,7 +385,7 @@ public class Motorentals {
             }
         }
         check = false;
-        while (check == false){
+        while (!check){
             Consola.escriu("Write the entity of your bank account (Next 4 digits): ");
             entity = Consola.llegeixInt();
             if (entity >= 0 && entity <= 9999){
@@ -345,7 +396,7 @@ public class Motorentals {
             
         }
         check = false;
-        while (check == false){
+        while (!check){
             Consola.escriu("Write the office of your bank account (Next 4 digits): ");
             office = Consola.llegeixInt();
             if (office >= 0 && office <= 9999){
@@ -356,7 +407,7 @@ public class Motorentals {
             
         }
         check = false;
-        while (check == false){
+        while (!check){
             Consola.escriu("Write the DC of your bank account (Next 2 digits): ");
             control = Consola.llegeixInt();
             if (control >= 0 && control <= 99){
@@ -367,7 +418,7 @@ public class Motorentals {
             
         }
         check = false;
-        while (check == false){
+        while (!check){
             Consola.escriu("Write the account number of your bank account (Last 10 digits): ");
             accNumber = Consola.llegeixInt();
             if (accNumber >= 0 && accNumber <= 999999999*10+9){
@@ -380,13 +431,13 @@ public class Motorentals {
         check = false;
         for(int i = 0; i< this.lstClient.size() && check == false; i++){
             check = this.lstClient.get(i).compareByDni(DNI);
-            if (check == true) {
+            if (check) {
                 Consola.escriu("You have already have an acoount");
             }
         }
         
-        if (check == false){
-            while (check == false){
+        if (!check){
+            while (!check){
                 Consola.escriu("Username: ");
                 user = Consola.llegeixString();
                 exists = false;
@@ -400,7 +451,7 @@ public class Motorentals {
             }
             
             check = false;
-            while (check == false) {
+            while (!check) {
                 Consola.escriu("Password: ");
                 pass1 = Consola.llegeixString();
 
@@ -575,74 +626,83 @@ public class Motorentals {
         while (bool){
             //From which locals can we move motos? Take them and put them in a list.
             lstLocal = getStartAvailableLocals();
-            Consola.escriu("\n You can move motos from these locals: ");
-            printLocalList(lstLocal);
-            Consola.escriu("\n Insert the number of the index of your prefered local");
-            num = Consola.llegeixInt();
-            size = lstLocal.size();
-            //Let's check if the index inserted is correct:
-            num = checkNumber(num, size);
-            lStart = getLocalByIndex(lstLocal, num);
-            
-            //Obtain the moto the admin wants to move:
-            Consola.escriu("\n --->These are the motos you can move: ");
-            lStart.printMotoList();
-            Consola.escriu("\n Insert the number of the index of the moto you want to move: ");
-            num = Consola.llegeixInt();
-            size = lStart.getQuantityMotos();
-            //Check that the index is correct
-            num = checkNumber(num, size);
-            m = lStart.getMotoByIndex(num);
-            
-            //To which locals can we move motos? Take them and put them in list.
-            lstLocal= getEndAvailableLocals();
-            Consola.escriu("\n You can move motos to these locals: ");
-            printLocalList(lstLocal);
-            Consola.escriu("\n Insert the number of the index of your prefered local");
-            num = Consola.llegeixInt();
-            size = lstLocal.size();
-            //Let's check if the index inserted is correct:
-            num = checkNumber(num, size);
-            lEnd = getLocalByIndex(lstLocal, num);
-            
-            /**
-             * LOTS of prints!!
-             */
-            Consola.escriu("*********************");
-            Consola.escriu("These are the changes you are about to do: ");
-            Consola.escriu("*********************");
-            
-            Consola.escriu("\n You will move a moto from the local: ");
-            lStart.printInfoLocal();
-            
-            Consola.escriu("*********************");
-            
-            Consola.escriu("\n You will move the moto: ");
-            m.printInfoMoto();
-            
-            Consola.escriu("*********************");
-            
-            Consola.escriu("\n You will move the moto to the local: ");
-            lEnd.printInfoLocal();
-            
-            Consola.escriu("*********************");
-            
-            Consola.escriu("Insert an S to confirm the changes or an N to discard them ");
-            answer = Consola.llegeixString();
-            //Let's check if the admin wants to confirm the changes.
-            //If we have a true, we keep doing it.
-            //If we have a false, the admin doesn't want to make changes.
-            bool = checkYesNo(answer);
-            if (bool){
-                changeMoto(lStart, lEnd, m);
+            //Same error control here. If the locals are empty, we can't move anything!
+            if (!lstLocal.isEmpty()){
+                Consola.escriu("\n You can move motos from these locals: ");
+                printLocalList(lstLocal);
+                Consola.escriu("\n Insert the number of the index of your prefered local");
+                num = Consola.llegeixInt();
+                size = lstLocal.size();
+                //Let's check if the index inserted is correct:
+                num = checkNumber(num, size);
+                lStart = getLocalByIndex(lstLocal, num);
                 
-                Consola.escriu("\n *** The change has been done correctly! ***");
-                Consola.escriu("Insert an S to keep moving motos, an N otherwise");
-                answer = Consola.llegeixString();
-                //Same scenario here. If we have a true, the admin wants to make more changes.
-                bool = checkYesNo(answer);
+                //Obtain the moto the admin wants to move:
+                Consola.escriu("\n --->These are the motos you can move: ");
+                lStart.printMotoList();
+                Consola.escriu("\n Insert the number of the index of the moto you want to move: ");
+                num = Consola.llegeixInt();
+                size = lStart.getQuantityMotos();
+                //Check that the index is correct
+                num = checkNumber(num, size);
+                m = lStart.getMotoByIndex(num);
+
+                //To which locals can we move motos? Take them and put them in list.
+                lstLocal= getEndAvailableLocals();
+                if (!lstLocal.isEmpty()){
+                    Consola.escriu("\n You can move motos to these locals: ");
+                    printLocalList(lstLocal);
+                    Consola.escriu("\n Insert the number of the index of your prefered local");
+                    num = Consola.llegeixInt();
+                    size = lstLocal.size();
+                    //Let's check if the index inserted is correct:
+                    num = checkNumber(num, size);
+                    lEnd = getLocalByIndex(lstLocal, num);
+
+                    /**
+                     * LOTS of prints!!
+                     */
+                    Consola.escriu("*********************");
+                    Consola.escriu("These are the changes you are about to do: ");
+                    Consola.escriu("*********************");
+
+                    Consola.escriu("\n You will move a moto from the local: ");
+                    lStart.printInfoLocal();
+
+                    Consola.escriu("*********************");
+
+                    Consola.escriu("\n You will move the moto: ");
+                    m.printInfoMoto();
+
+                    Consola.escriu("*********************");
+
+                    Consola.escriu("\n You will move the moto to the local: ");
+                    lEnd.printInfoLocal();
+
+                    Consola.escriu("*********************");
+
+                    Consola.escriu("Insert an S to confirm the changes or an N to discard them ");
+                    answer = Consola.llegeixString();
+                    //Let's check if the admin wants to confirm the changes.
+                    //If we have a true, we keep doing it.
+                    //If we have a false, the admin doesn't want to make changes.
+                    bool = checkYesNo(answer);
+                    if (bool){
+                        changeMoto(lStart, lEnd, m);
+
+                        Consola.escriu("\n *** The change has been done correctly! ***");
+                        Consola.escriu("Insert an S to keep moving motos, an N otherwise");
+                        answer = Consola.llegeixString();
+                        //Same scenario here. If we have a true, the admin wants to make more changes.
+                        bool = checkYesNo(answer);
+                    }
+                }else {
+                    Consola.escriu("Sorry, but you can't move motos right now. Your locals are almost full.");
+                }
+            } else {
+                Consola.escriu("Sorry, but you can't move motos right now. Your locals are almost empty.");
             }
-        }
+        }    
     }
     
     /**
@@ -728,42 +788,72 @@ public class Motorentals {
                 }
             }
     
+            //Trying to get our starter local.
             Local localS = bookGetLocalS();
-            Local localE = bookGetLocalE();
-            Moto motoreta = bookGetMoto(localS);
-        
-            Consola.escriu("Insert number of days you would like to reserve:");
-            int cantDias = Consola.llegeixInt();
-            Consola.escriu("Insert number of hours you would like to reserve:");
-            int cantHoras = Consola.llegeixInt();
-            this.bookPrintInfo(localS,localE,motoreta,date,cantDias,cantHoras);
-            Consola.escriu("Insert an S to confirm or an N to cancel the reserve");
-            String ans = Consola.llegeixString();
-            correct = checkYesNo(ans);
-            if(correct){
-                ((Client)current).addActiveReserve(localS, localE, date, cantHoras, cantDias, motoreta);
-                String code = new String();
-                code = ((Client)current).getId()+localS.getId()+localE.getId()+motoreta.getId()+Integer.toString(cantHoras)+Integer.toString(cantDias);
-                code = code + date.get(Calendar.HOUR_OF_DAY) + date.get(Calendar.DAY_OF_MONTH) + Integer.toString(date.get(Calendar.MONTH)+1) + date.get(Calendar.YEAR);
-                ((Client)current).setCodeToActiveReserve(code);
-                Consola.escriu("Code: "+code);
-                Consola.escriu("The reserve has been done and saved");
+            //If it is different from null, then we can keep going.
+            if (localS != null){
+                //We can try to get our ending local.
+                Local localE = bookGetLocalE();
+                //And if indeed we can reach up to an ending local, we can keep going.
+                if (localE != null){
+                //We DON'T have to check the same for the motos, because it is considered that a local is available
+                //If it has a X amount of motos. So if we reach here, then our starting local is HAS motos for sure.
+                Moto motoreta = bookGetMoto(localS);
+
+                Consola.escriu("Insert number of days you would like to reserve:");
+                int cantDias = Consola.llegeixInt();
+                Consola.escriu("Insert number of hours you would like to reserve:");
+                int cantHoras = Consola.llegeixInt();
+                this.bookPrintInfo(localS,localE,motoreta,date,cantDias,cantHoras);
+                Consola.escriu("Insert an S to confirm or an N to cancel the reserve");
+                String ans = Consola.llegeixString();
+                correct = checkYesNo(ans);
+                if(correct){
+                    ((Client)current).addActiveReserve(localS, localE, date, cantHoras, cantDias, motoreta);
+                    String code = new String();
+                    code = ((Client)current).getId()+localS.getId()+localE.getId()+motoreta.getId()+Integer.toString(cantHoras)+Integer.toString(cantDias);
+                    code = code + date.get(Calendar.HOUR_OF_DAY) + date.get(Calendar.DAY_OF_MONTH) + Integer.toString(date.get(Calendar.MONTH)+1) + date.get(Calendar.YEAR);
+                    ((Client)current).setCodeToActiveReserve(code);
+                    Consola.escriu("Code: "+code);
+                    Consola.escriu("The reserve has been done and saved");
+                        }  
+                }
             }
         }
     }
 
+    /**
+     * Gets a correct starting local or informs that there aren't such locals.
+     * @return Local if it is possible, null if it isn't.
+     */
     private Local bookGetLocalS() {
         ArrayList<Local> auxLstLocals = getStartAvailableLocals();
         
-        printLocalList(auxLstLocals);
-        Consola.escriu("Insert the index of your prefered local (exit) .");
-        int indice = Consola.llegeixInt();
-        int lenght = auxLstLocals.size();
-        indice = checkNumber(indice,lenght);
-        Local localS = getLocalByIndex(auxLstLocals,indice);
-        return localS;
+        //So let's take over the possible errors.
+        //What if the application is overload and doesn't have motos?
+        //The user would be stuck and won't be allowed to leave the option.
+        //Simple solution: let's check that the available locals isn't an empty list.
+        //If it isn't an empty list... then we can proceed normally.
+        //But if it is an empty list, the user can't do anything and we will return to the menu.
+        if (!auxLstLocals.isEmpty()){
+            printLocalList(auxLstLocals);
+            Consola.escriu("Insert the index of your prefered local (exit) .");
+            int indice = Consola.llegeixInt();
+            int lenght = auxLstLocals.size();
+            indice = checkNumber(indice,lenght);
+            Local localS = getLocalByIndex(auxLstLocals,indice);
+            return localS;
+        } else {
+            Consola.escriu("Sorry, the application is overload and doesn't have enough motos.");
+            Consola.escriu("Try it again later, thank you for your patience.");
+            return null;
+        }
     }
 
+    /**
+     * Makes an arrayList of available starter locals.
+     * @return arrayList of starter locals.
+     */
     private ArrayList<Local> getStartAvailableLocals() {
         ArrayList<Local> lstLocalAux = new ArrayList<Local>(); 
         for(int i=0;i<lstLocal.size();i++){
@@ -775,6 +865,10 @@ public class Motorentals {
         return lstLocalAux;
     }
     
+    /**
+     * Given a list of locals, print its elements. 
+     * @param auxLstLocals list to print.
+     */
     private void printLocalList(ArrayList<Local> auxLstLocals) {
         for(int i=0;i<auxLstLocals.size();i++){
             Consola.escriu("Local " + Integer.toString(i+1));
@@ -784,13 +878,25 @@ public class Motorentals {
         }
     }
 
+    /**
+     * Gets a local of a list based on an index. 
+     * @param auxLstLocal
+     * @param indice
+     * @return 
+     */
     private Local getLocalByIndex(ArrayList<Local> auxLstLocal, int indice) {
         return auxLstLocal.get(indice-1);
     }
 
+    /**
+     * Gets a correct ending local. 
+     * @return Local if it's possible, null if it isn't.
+     */
     private Local bookGetLocalE() {
         ArrayList<Local> auxLstLocals = getEndAvailableLocals();
         
+        //The exact same process here, if the list is empty we don't have to keep with the process.
+        if (!auxLstLocals.isEmpty()){
         printLocalList(auxLstLocals);
         Consola.escriu("Insert the index of your prefered local (arrival).");
         int indice = Consola.llegeixInt();
@@ -798,8 +904,17 @@ public class Motorentals {
         indice = checkNumber(indice,lenght);
         Local localS = getLocalByIndex(auxLstLocals,indice);
         return localS;
+        } else {
+            Consola.escriu("Sorry, the application is overload and doesn't have enough motos.");
+            Consola.escriu("Try it again later, thank you for your patience.");
+            return null;
+        }
     }
 
+    /**
+     * Makes an arraylist of ending locals. 
+     * @return list of ending locals. 
+     */
     private ArrayList<Local> getEndAvailableLocals() {
         ArrayList<Local> lstLocalAux = new ArrayList<Local>(); 
         for(int i=0;i<lstLocal.size();i++){
@@ -811,6 +926,11 @@ public class Motorentals {
         return lstLocalAux;
     }
 
+    /**
+     * Gets a Moto of a starting local. 
+     * @param localS local to extract the moto.
+     * @return moto to be rented.
+     */
     private Moto bookGetMoto(Local localS) {
         ArrayList<Moto> aux = new ArrayList<Moto>();
         aux = localS.getAvailableMotos();
@@ -870,7 +990,9 @@ public class Motorentals {
             Consola.escriu("Insert the number of the year you would like to check");
             a = Consola.llegeixInt();
             
-            if (a == 2015){
+            //This can be changed. If the application is running for years, then
+            //sure some years past 2017 would be correct years too.
+            if (0 < a && 2017>=a){
                 check = true;
             } else {
                 Consola.escriu("Your number is incorrect. Please, try it again");
@@ -1173,7 +1295,16 @@ public class Motorentals {
         }while(index!=7);
                 
     }
-
+    
+    /**
+     * Prints a certain information about the book. 
+     * @param localS
+     * @param localE
+     * @param motoreta
+     * @param date
+     * @param cantDias
+     * @param cantHoras 
+     */
     private void bookPrintInfo(Local localS, Local localE, Moto motoreta, Calendar date, int cantDias, int cantHoras) {
        String strDays;
        String strHours;
@@ -1188,6 +1319,10 @@ public class Motorentals {
        Consola.escriu("Days:"+ strDays + "Hours:" + strHours);
     }
 
+    /**
+     * Prints the motos of a list. 
+     * @param aux  list to be printed out. 
+     */
     private void printMotoList(ArrayList<Moto> aux) {
         int i = 0;
         for(Moto m:aux){
