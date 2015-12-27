@@ -68,11 +68,7 @@ public class Client extends Person{
      * @param motoreta 
      */
     public void addActiveReserve(Local localS, Local localE, Calendar date, int cantHoras, int cantDias, Moto motoreta){
-        /**
-         * Se tendra que modificar pero ahora me da palo.
-         * Se tiene que poner el cantHoras, cantDias en función del date dado.
-         * Necesitamos un objeto tipo date.
-         */
+        
         Reserve reserve = new Reserve(localS, localE, date, motoreta, cantHoras, cantDias);
         active = reserve;
     }
@@ -270,7 +266,7 @@ public class Client extends Person{
 
     /**
      * Method to get the id of a client.
-     * @return 
+     * @return the id of a client
      */
     public String getId() {
         return id;
