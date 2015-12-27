@@ -439,8 +439,8 @@ public class Motorentals {
                 check = true;
                 user = Consola.llegeixString();
                 exists = false;
-                for(int i = 0; i< this.lstClient.size() && check; i++){
-                    exists = this.lstClient.get(i).compareByUser(user);
+                for(int c = 0; c< this.lstClient.size() && check; c++){
+                    exists = this.lstClient.get(c).compareByUser(user);
                     if (exists){
                         Consola.escriu("This username already exists");
                         Consola.escriu("Please write your username again");
@@ -560,8 +560,7 @@ public class Motorentals {
             
             if (yesNo){
                 this.pickUpMakeChange(m,lend);
-                myclient.addReserveDone(myclient.getActiveReserve());
-                myclient.removeActiveReserve();
+                myclient.changeActiveToDone();
                 
             } else {
                 myclient.removeAdmonishFromActiveReserve();
@@ -1012,6 +1011,7 @@ public class Motorentals {
             l.printInfoLocal();
             Consola.escriu("------------");
             //Second, lets print all the motos
+            Consola.escriu("Motos being driven");
             l.printMotoList();
         }
         

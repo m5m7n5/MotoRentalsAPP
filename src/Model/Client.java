@@ -280,5 +280,10 @@ public class Client extends Person{
         active.setCode(code);
     }
 
+    public void changeActiveToDone() {
+        this.addReserveDone(active);
+        this.removeActiveReserve();
+    }
+
     
 }
