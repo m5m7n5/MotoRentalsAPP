@@ -816,6 +816,8 @@ public class Motorentals {
                         }  
                 }
             }
+        } else {
+            Consola.escriu("You have already done a reserve");
         }
     }
 
