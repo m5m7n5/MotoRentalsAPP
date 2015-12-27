@@ -1016,6 +1016,7 @@ public class Motorentals {
         }
         
         //Print the motos currently being driven.
+        Consola.escriu("Motos currently on the road: ");
         for(Moto m: lstDriving){
             m.printInfoMoto();
         }
