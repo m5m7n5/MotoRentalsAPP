@@ -21,7 +21,7 @@ public class Person {
     }
   
     /**
-     * Checks if the user has the same username  
+     * Checks if the user has a correct username.  
      * @param user
      * @return true if both of usernames are equal, false otherwise.
      */
@@ -30,9 +30,9 @@ public class Person {
     }
     
     /**
-     * 
+     * Checck if the password is correct.
      * @param pass
-     * @return  
+     * @return  true if both passwords are equal, false otherwise.
      */
     public boolean compareByPassword(String pass){
         return (password.equals(pass));

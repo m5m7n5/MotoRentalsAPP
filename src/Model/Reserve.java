@@ -136,7 +136,11 @@ public class Reserve {
         return total;
     }
 
-    void setCode(String code) {
+    /**
+     * Changes the code of the reserve.
+     * @param code 
+     */
+    public void setCode(String code) {
         this.code = code;
     }
 }
