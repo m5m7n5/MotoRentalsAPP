@@ -30,6 +30,9 @@ public class Moto {
         }
     }
     
+    /**
+     * Show all the information about a moto.
+     */
     public void printInfoMoto() {
         model.printInfoModel();
         Consola.escriu("License plate:"+plate);
@@ -37,9 +40,18 @@ public class Moto {
         status.printStatus();
     }
 
+    /**
+     * Compares two motos from the id.
+     * @param moto
+     * @return true if the id's are equal, false otherwise.
+     */
     public boolean compareMotoById(String moto) {
         return moto.equals(this.idMoto);
     }
+    
+    /**
+     * Changes the status of a moto to non available.
+     */
     public void changeStatusNonAvailable() {
         String desc;
         Consola.escriu("Write a description of the status");
@@ -48,10 +60,17 @@ public class Moto {
         this.status = new MotoStatus(desc);
     }
 
+    /**
+     * Changes the status of a moto to available.
+     */
     public void changeStatusAvailable() {
         this.status = new AvailableStatus(null);
     }
 
+    /**
+     * Check if the moto is available or not.
+     * @return true if the moto is available, false otherwise.
+     */
     public boolean isAvailable() {
         if(status instanceof AvailableStatus){
             return true;
@@ -59,6 +78,10 @@ public class Moto {
         return false;
     }
 
+    /**
+     * Gets the id of the moto
+     * @return the id of the moto
+     */
     public String getId() {
         return idMoto;
     }

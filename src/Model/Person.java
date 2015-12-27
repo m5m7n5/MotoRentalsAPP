@@ -19,11 +19,21 @@ public class Person {
         this.password = password;
         this.name=name;
     }
-    
+  
+    /**
+     * Checks if the user has the same username  
+     * @param user
+     * @return true if both of usernames are equal, false otherwise.
+     */
     public boolean compareByUser(String user){
         return (userName.equals(user));
     }
     
+    /**
+     * 
+     * @param pass
+     * @return  
+     */
     public boolean compareByPassword(String pass){
         return (password.equals(pass));
     }

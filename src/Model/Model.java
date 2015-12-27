@@ -26,7 +26,11 @@ public class Model {
         horsepower = h;
         tank = t;
     }
-    void printInfoModel() {
+    
+    /**
+     * Show the all the information about a model of the moto.
+     */
+    public void printInfoModel() {
         Consola.escriu("Model name "+name);
         Consola.escriu("Fuel type "+fuel);
         Consola.escriu("Tank capacity "+Integer.toString(tank));

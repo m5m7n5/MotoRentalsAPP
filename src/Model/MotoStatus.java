@@ -17,6 +17,10 @@ public class MotoStatus {
     public MotoStatus(String description){
         this.description= description;
     }
+    
+    /**
+     * Show the description of the status of a moto.
+     */
     public void printStatus() {
         Consola.escriu(this.description);
     }
