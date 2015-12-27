@@ -940,6 +940,44 @@ public class Motorentals {
         indice = checkNumber(indice, aux.size());
         return aux.get(indice-1);
     }
+    
+    /**
+     * Prints a certain information about the book. 
+     * @param localS
+     * @param localE
+     * @param motoreta
+     * @param date
+     * @param cantDias
+     * @param cantHoras 
+     */
+    private void bookPrintInfo(Local localS, Local localE, Moto motoreta, Calendar date, int cantDias, int cantHoras) {
+       String strDays;
+       String strHours;
+       
+       localS.printInfoLocal();
+       localE.printInfoLocal();
+       motoreta.printInfoMoto();
+       
+       Consola.escriu("Time to reserve");
+       strDays = Integer.toString(cantDias);
+       strHours = Integer.toString(cantHoras);
+       Consola.escriu("Days:"+ strDays + "Hours:" + strHours);
+    }
+
+    /**
+     * Prints the motos of a list. 
+     * @param aux  list to be printed out. 
+     */
+    private void printMotoList(ArrayList<Moto> aux) {
+        int i = 0;
+        for(Moto m:aux){
+            Consola.escriu("Moto "+ Integer.toString(i+1));
+            Consola.escriu("****************");
+            m.printInfoMoto();
+            Consola.escriu("****************");
+            i++;
+        }
+    }
 
     /**
      * Method that allows the admin to see all the motos.
@@ -1106,6 +1144,7 @@ public class Motorentals {
      * Prints for the user menu.
      */
     private void showUserMenu(){
+        Consola.escriu(" /// *WELCOME TO MOTORENTALS APP* ///");
         Consola.escriu("1. Log in");
         Consola.escriu("2. Sign up");
         Consola.escriu("3. Exit application");
@@ -1296,42 +1335,5 @@ public class Motorentals {
                 
     }
     
-    /**
-     * Prints a certain information about the book. 
-     * @param localS
-     * @param localE
-     * @param motoreta
-     * @param date
-     * @param cantDias
-     * @param cantHoras 
-     */
-    private void bookPrintInfo(Local localS, Local localE, Moto motoreta, Calendar date, int cantDias, int cantHoras) {
-       String strDays;
-       String strHours;
-       
-       localS.printInfoLocal();
-       localE.printInfoLocal();
-       motoreta.printInfoMoto();
-       
-       Consola.escriu("Time to reserve");
-       strDays = Integer.toString(cantDias);
-       strHours = Integer.toString(cantHoras);
-       Consola.escriu("Days:"+ strDays + "Hours:" + strHours);
-    }
-
-    /**
-     * Prints the motos of a list. 
-     * @param aux  list to be printed out. 
-     */
-    private void printMotoList(ArrayList<Moto> aux) {
-        int i = 0;
-        for(Moto m:aux){
-            Consola.escriu("Moto "+ Integer.toString(i+1));
-            Consola.escriu("****************");
-            m.printInfoMoto();
-            Consola.escriu("****************");
-            i++;
-        }
-    }
 }
   
