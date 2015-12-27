@@ -1059,7 +1059,7 @@ public class Motorentals {
        String chr;
        
        while (!check){
-           for (int i = 0; i <= this.lstClient.size() && !check; i++){
+           for (int i = 0; i < this.lstClient.size() && !check; i++){
                check = this.lstClient.get(i).compareCode(code);
                
                if (check){
