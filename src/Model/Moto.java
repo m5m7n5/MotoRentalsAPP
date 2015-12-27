@@ -35,9 +35,10 @@ public class Moto {
      */
     public void printInfoMoto() {
         model.printInfoModel();
-        Consola.escriu("License plate:"+plate);
-        Consola.escriu("Color:"+color);
+        Consola.escriu("License plate:"+ plate);
+        Consola.escriu("Color:"+ color);
         status.printStatus();
+        Consola.escriu("");
     }
 
     /**

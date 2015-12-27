@@ -434,17 +434,35 @@ public class Motorentals {
         }
         
         if (!check){
+            Consola.escriu("**Username: ");
             while (!check){
-                Consola.escriu("**Username: ");
+                check = true;
                 user = Consola.llegeixString();
                 exists = false;
-                for(int i = 0; i< this.lstClient.size() && check == false; i++){
+                for(int i = 0; i< this.lstClient.size() && check; i++){
                     exists = this.lstClient.get(i).compareByUser(user);
-                    if (exists == true){
+                    if (exists){
                         Consola.escriu("This username already exists");
+                        Consola.escriu("Please write your username again");
+                        check = false;
                     }
                 }
-                check = !exists;
+                for(int a = 0; a<this.lstAdmin.size() && check; a++){
+                    exists = this.lstAdmin.get(a).compareByUser(user);
+                    if (exists){
+                        Consola.escriu("This username already exists");
+                        Consola.escriu("Please write your username again");
+                        check = false;
+                    }
+                }
+                for(int m = 0; m<this.lstManager.size() && check;m++){
+                    exists = this.lstManager.get(m).compareByUser(user);
+                    if (exists){
+                        Consola.escriu("This username already exists");
+                        Consola.escriu("Please write your username again");
+                        check = false;
+                    }
+                }
             }
             
             check = false;
@@ -542,7 +560,9 @@ public class Motorentals {
             
             if (yesNo){
                 this.pickUpMakeChange(m,lend);
-            
+                myclient.addReserveDone(myclient.getActiveReserve());
+                myclient.removeActiveReserve();
+                
             } else {
                 myclient.removeAdmonishFromActiveReserve();
                 myclient.removeDelayFromActiveReserve();
@@ -1035,10 +1055,14 @@ public class Motorentals {
                 Consola.escriu("Your number is incorrect. Please, try it again");
             }
         }
+        Consola.escriu("");
+        Consola.escriu("**MONTHLY REPORT**");
+        Consola.escriu("");
         for(Client c: lstClient){
             c.printDNI();
-            Consola.escriu("Reserves done by this client");
+            Consola.escriu("Reserves done by this client: ");
             c.printReservesByMonthYear(m, a);
+            Consola.escriu("-----------------------");
         }
     }
 

@@ -71,11 +71,16 @@ public class Reserve {
     }
 
     public void printInfoReserve() {
+        Consola.escriu("Start local: ");
         this.start.printInfoLocal();
+        Consola.escriu("Arrival local: ");
         this.arrival.printInfoLocal();
+        Consola.escriu("Moto: ");
         this.moto.printInfoMoto();
         
+        Consola.escriu("Start Date: ");
         Consola.escriu(this.startDate);
+        Consola.escriu("End Date: ");
         Consola.escriu(this.endDate);
         
     }
@@ -128,8 +133,7 @@ public class Reserve {
             }
             total = this.price.getAmount();
             total = total + priceA + priceD;
-            Consola.escriu("total reserve cost: ");
-            Consola.escriu(total);
+            Consola.escriu("Total reserve cost: " + total);
         }
         //If this reserve hasn't happened in the given month/year
         //we will return a 0, so it's ok.

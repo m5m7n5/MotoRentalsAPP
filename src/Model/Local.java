@@ -45,11 +45,10 @@ public class Local {
      */
     public void printInfoLocal() {
         add.printStreet();
-        Consola.escriu("Max quantity");
-        Consola.escriu(maxMoto);
+        Consola.escriu("Max quantity " + maxMoto);
         int size = lstMotos.size();
-        Consola.escriu("Current moto quantity");
-        Consola.escriu(size);
+        Consola.escriu("Current moto quantity " + size);
+        Consola.escriu("");
     }
 
     /**

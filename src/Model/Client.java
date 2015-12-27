@@ -122,6 +122,10 @@ public class Client extends Person{
         return lend;
     }
 
+    public Reserve getActiveReserve(){
+        return this.active;
+    }
+    
     public void admonish() {
         String explicacion;
         int priceAdmonish;
@@ -179,6 +183,9 @@ public class Client extends Person{
         this.active.removeDelay();
     }
     
+    public void removeActiveReserve() {
+        this.active = null;
+    }
     /**
      * Method that calculated the total bill of a client given a month and a year.
      * it also prints the client's reserves' information.
@@ -194,8 +201,8 @@ public class Client extends Person{
             total += amount;
         }
         
-        Consola.escriu("Month bill: ");
-        Consola.escriu(total);
+        Consola.escriu("Month bill: " +total);
+        
     }
     
     public void printActiveReserve() {
@@ -217,4 +224,6 @@ public class Client extends Person{
     public void setCodeToActiveReserve(String code) {
         active.setCode(code);
     }
+
+    
 }
