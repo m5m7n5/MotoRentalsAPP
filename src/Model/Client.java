@@ -13,7 +13,7 @@ public class Client extends Person{
     private Address address;
     private ArrayList<Reserve> lstDone;
     private Reserve active;
-    private Date registerDate;
+    private Calendar registerDate;
     private String id;
     
     public Client(String user,String password,String id,String name,String surname,String DNI,int numberAdmonish,String address){

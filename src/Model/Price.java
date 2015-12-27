@@ -11,11 +11,10 @@ package Model;
  */
 public class Price {
     private int amount;
-    private Euro money;
+    
     
     public Price(int amount){
         this.amount = amount;
-        this.money = null;
     }
     /**
      * Return the amount of the price
